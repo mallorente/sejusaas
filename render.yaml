@@ -1,0 +1,7 @@
+services:
+  - type: worker
+    name: coh3stats-worker
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python main.py
+    plan: free 
