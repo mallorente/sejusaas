@@ -77,7 +77,16 @@ class TestConnections(unittest.TestCase):
             self.assertEqual(response.status_code, 200, "El endpoint de jugador está accesible")
             
             # Verificar que la respuesta contiene HTML válido
-            self.assertIn("<!DOCTYPE html>", response.text.lower())
+            self.assertTrue(
+                response.text.lower().startswith('<!doctype html>') or 
+                response.text.lower().startswith('<!DOCTYPE html>'),
+                "La respuesta debe contener un doctype HTML válido"
+            )
+            
+            # Verificar que la respuesta contiene elementos HTML básicos
+            self.assertIn('<html', response.text.lower(), "La respuesta debe contener una etiqueta HTML")
+            self.assertIn('<head', response.text.lower(), "La respuesta debe contener una etiqueta HEAD")
+            self.assertIn('<body', response.text.lower(), "La respuesta debe contener una etiqueta BODY")
             
             # Verificar rate limiting
             headers = response.headers
