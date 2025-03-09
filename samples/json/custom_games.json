@@ -1,0 +1,372 @@
+[
+  {
+    "match_id": "73550_1",
+    "player_id": "73550",
+    "player_name": "seju-fuminguez",
+    "match_date": "6 days ago",
+    "match_type": "Custom",
+    "match_result": "Defeat",
+    "rating_change": "DEFEAT -11",
+    "map_name": "Gothic Line",
+    "duration": "34:36",
+    "axis_players": [
+      {
+        "player_id": "26324",
+        "player_name": "seju-gambitero"
+      },
+      {
+        "player_id": "73550",
+        "player_name": "seju-fuminguez"
+      },
+      {
+        "player_id": "657884",
+        "player_name": "seju-Topper Harley"
+      }
+    ],
+    "allies_players": [
+      {
+        "player_id": "8414",
+        "player_name": "seju-durumkebap"
+      },
+      {
+        "player_id": "608760",
+        "player_name": "seju-Nobitez"
+      },
+      {
+        "player_id": "26566",
+        "player_name": "seju-Gavilan"
+      }
+    ],
+    "is_simulated": false,
+    "is_scraped": true
+  },
+  {
+    "match_id": "73550_2",
+    "player_id": "73550",
+    "player_name": "seju-fuminguez",
+    "match_date": "6 days ago",
+    "match_type": "Custom",
+    "match_result": "Defeat",
+    "rating_change": "VICTORY +12",
+    "map_name": "Gazala Landing Ground",
+    "duration": "37:48",
+    "axis_players": [
+      {
+        "player_id": "73550",
+        "player_name": "seju-fuminguez"
+      },
+      {
+        "player_id": "608760",
+        "player_name": "seju-Nobitez"
+      },
+      {
+        "player_id": "26324",
+        "player_name": "seju-gambitero"
+      }
+    ],
+    "allies_players": [
+      {
+        "player_id": "8414",
+        "player_name": "seju-durumkebap"
+      },
+      {
+        "player_id": "26566",
+        "player_name": "seju-Gavilan"
+      },
+      {
+        "player_id": "691155",
+        "player_name": "Seju-Aceros"
+      }
+    ],
+    "is_simulated": false,
+    "is_scraped": true
+  },
+  {
+    "match_id": "73550_3",
+    "player_id": "73550",
+    "player_name": "seju-fuminguez",
+    "match_date": "6 days ago",
+    "match_type": "Custom",
+    "match_result": "Defeat",
+    "rating_change": "DEFEAT -18",
+    "map_name": "Oasis Depot",
+    "duration": "32:11",
+    "axis_players": [
+      {
+        "player_id": "462193",
+        "player_name": "Seju-Bocata"
+      },
+      {
+        "player_id": "657884",
+        "player_name": "seju-Topper Harley"
+      },
+      {
+        "player_id": "73550",
+        "player_name": "seju-fuminguez"
+      }
+    ],
+    "allies_players": [
+      {
+        "player_id": "8414",
+        "player_name": "seju-durumkebap"
+      },
+      {
+        "player_id": "691155",
+        "player_name": "Seju-Aceros"
+      },
+      {
+        "player_id": "109107",
+        "player_name": "Mex-Strap"
+      },
+      {
+        "player_id": "26566",
+        "player_name": "seju-Gavilan"
+      }
+    ],
+    "is_simulated": false,
+    "is_scraped": true
+  },
+  {
+    "match_id": "73550_4",
+    "player_id": "73550",
+    "player_name": "seju-fuminguez",
+    "match_date": "6 days ago",
+    "match_type": "Custom",
+    "match_result": "Defeat",
+    "rating_change": "VICTORY +14",
+    "map_name": "Oasis Depot",
+    "duration": "05:44",
+    "axis_players": [
+      {
+        "player_id": "657884",
+        "player_name": "seju-Topper Harley"
+      },
+      {
+        "player_id": "73550",
+        "player_name": "seju-fuminguez"
+      },
+      {
+        "player_id": "462193",
+        "player_name": "Seju-Bocata"
+      }
+    ],
+    "allies_players": [
+      {
+        "player_id": "8414",
+        "player_name": "seju-durumkebap"
+      },
+      {
+        "player_id": "691155",
+        "player_name": "Seju-Aceros"
+      },
+      {
+        "player_id": "26566",
+        "player_name": "seju-Gavilan"
+      },
+      {
+        "player_id": "109107",
+        "player_name": "Mex-Strap"
+      }
+    ],
+    "is_simulated": false,
+    "is_scraped": true
+  },
+  {
+    "match_id": "73550_13",
+    "player_id": "73550",
+    "player_name": "seju-fuminguez",
+    "match_date": "1 week ago",
+    "match_type": "Custom",
+    "match_result": "Defeat",
+    "rating_change": "VICTORY +16",
+    "map_name": "Crossing in the Woods",
+    "duration": "33:58",
+    "axis_players": [
+      {
+        "player_id": "73550",
+        "player_name": "seju-fuminguez"
+      },
+      {
+        "player_id": "462193",
+        "player_name": "Seju-Bocata"
+      }
+    ],
+    "allies_players": [
+      {
+        "player_id": "8414",
+        "player_name": "seju-durumkebap"
+      },
+      {
+        "player_id": "691155",
+        "player_name": "Seju-Aceros"
+      }
+    ],
+    "is_simulated": false,
+    "is_scraped": true
+  },
+  {
+    "match_id": "73550_18",
+    "player_id": "73550",
+    "player_name": "seju-fuminguez",
+    "match_date": "2 weeks ago",
+    "match_type": "Custom",
+    "match_result": "Defeat",
+    "rating_change": "DEFEAT -15",
+    "map_name": "Santuario",
+    "duration": "36:08",
+    "axis_players": [
+      {
+        "player_id": "73550",
+        "player_name": "seju-fuminguez"
+      },
+      {
+        "player_id": "462193",
+        "player_name": "Seju-Bocata"
+      }
+    ],
+    "allies_players": [
+      {
+        "player_id": "109107",
+        "player_name": "Mex-Strap"
+      },
+      {
+        "player_id": "8414",
+        "player_name": "seju-durumkebap"
+      }
+    ],
+    "is_simulated": false,
+    "is_scraped": true
+  },
+  {
+    "match_id": "73550_21",
+    "player_id": "73550",
+    "player_name": "seju-fuminguez",
+    "match_date": "2 weeks ago",
+    "match_type": "Custom",
+    "match_result": "Defeat",
+    "rating_change": "DEFEAT -11",
+    "map_name": "Santuario",
+    "duration": "44:55",
+    "axis_players": [
+      {
+        "player_id": "26566",
+        "player_name": "seju-Gavilan"
+      },
+      {
+        "player_id": "26324",
+        "player_name": "seju-gambitero"
+      }
+    ],
+    "allies_players": [
+      {
+        "player_id": "73550",
+        "player_name": "seju-fuminguez"
+      },
+      {
+        "player_id": "109107",
+        "player_name": "Mex-Strap"
+      }
+    ],
+    "is_simulated": false,
+    "is_scraped": true
+  },
+  {
+    "match_id": "73550_24",
+    "player_id": "73550",
+    "player_name": "seju-fuminguez",
+    "match_date": "2 weeks ago",
+    "match_type": "Custom",
+    "match_result": "Defeat",
+    "rating_change": "VICTORY +0",
+    "map_name": "Santuario",
+    "duration": "41:49",
+    "axis_players": [
+      {
+        "player_id": "26324",
+        "player_name": "seju-gambitero"
+      },
+      {
+        "player_id": "26566",
+        "player_name": "seju-Gavilan"
+      }
+    ],
+    "allies_players": [
+      {
+        "player_id": "73550",
+        "player_name": "seju-fuminguez"
+      },
+      {
+        "player_id": "109107",
+        "player_name": "Mex-Strap"
+      }
+    ],
+    "is_simulated": false,
+    "is_scraped": true
+  },
+  {
+    "match_id": "73550_25",
+    "player_id": "73550",
+    "player_name": "seju-fuminguez",
+    "match_date": "2 weeks ago",
+    "match_type": "Custom",
+    "match_result": "Defeat",
+    "rating_change": "DEFEAT -12",
+    "map_name": "Road to Primosole",
+    "duration": "03:20",
+    "axis_players": [
+      {
+        "player_id": "26566",
+        "player_name": "seju-Gavilan"
+      },
+      {
+        "player_id": "26324",
+        "player_name": "seju-gambitero"
+      }
+    ],
+    "allies_players": [
+      {
+        "player_id": "73550",
+        "player_name": "seju-fuminguez"
+      },
+      {
+        "player_id": "109107",
+        "player_name": "Mex-Strap"
+      }
+    ],
+    "is_simulated": false,
+    "is_scraped": true
+  },
+  {
+    "match_id": "73550_29",
+    "player_id": "73550",
+    "player_name": "seju-fuminguez",
+    "match_date": "3 weeks ago",
+    "match_type": "Custom",
+    "match_result": "Defeat",
+    "rating_change": "VICTORY +5",
+    "map_name": "Santuario",
+    "duration": "01:55",
+    "axis_players": [
+      {
+        "player_id": "73550",
+        "player_name": "seju-fuminguez"
+      },
+      {
+        "player_id": "567369",
+        "player_name": "Seju-Grinch"
+      }
+    ],
+    "allies_players": [
+      {
+        "player_id": "462193",
+        "player_name": "Seju-Bocata"
+      },
+      {
+        "player_id": "109107",
+        "player_name": "Mex-Strap"
+      }
+    ],
+    "is_simulated": false,
+    "is_scraped": true
+  }
+]

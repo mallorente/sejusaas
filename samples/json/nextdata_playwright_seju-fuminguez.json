@@ -1,0 +1,3724 @@
+{
+  "props": {
+    "pageProps": {
+      "playerID": "73550",
+      "playerDataAPI": {
+        "platform": "steam",
+        "standings": {
+          "german": {
+            "1v1": {
+              "statgroup_id": 157048,
+              "leaderboard_id": 2130261,
+              "wins": 3,
+              "losses": 8,
+              "streak": -3,
+              "disputes": 0,
+              "drops": 0,
+              "rank": -1,
+              "ranktotal": 2195,
+              "ranklevel": 0,
+              "rating": 803,
+              "regionrank": -1,
+              "regionranktotal": 1012,
+              "lastmatchdate": 1717090099,
+              "highestrank": 1443,
+              "highestranklevel": 4,
+              "highestrating": 831
+            },
+            "2v2": {
+              "statgroup_id": 157048,
+              "leaderboard_id": 2130306,
+              "wins": 0,
+              "losses": 1,
+              "streak": -1,
+              "disputes": 0,
+              "drops": 0,
+              "rank": -1,
+              "ranktotal": -1,
+              "ranklevel": -1,
+              "rating": 954,
+              "regionrank": -1,
+              "regionranktotal": -1,
+              "lastmatchdate": 1740786068,
+              "highestrank": 0,
+              "highestranklevel": 0,
+              "highestrating": 0
+            },
+            "3v3": {
+              "statgroup_id": 157048,
+              "leaderboard_id": 2130335,
+              "wins": 2,
+              "losses": 6,
+              "streak": 1,
+              "disputes": 0,
+              "drops": 0,
+              "rank": -1,
+              "ranktotal": -1,
+              "ranklevel": -1,
+              "rating": 834,
+              "regionrank": -1,
+              "regionranktotal": -1,
+              "lastmatchdate": 1741283412,
+              "highestrank": 0,
+              "highestranklevel": 0,
+              "highestrating": 0
+            },
+            "4v4": null
+          },
+          "american": {
+            "1v1": {
+              "statgroup_id": 157048,
+              "leaderboard_id": 2130255,
+              "wins": 13,
+              "losses": 12,
+              "streak": -1,
+              "disputes": 0,
+              "drops": 0,
+              "rank": -1,
+              "ranktotal": 2102,
+              "ranklevel": 0,
+              "rating": 945,
+              "regionrank": -1,
+              "regionranktotal": 883,
+              "lastmatchdate": 1722361450,
+              "highestrank": 956,
+              "highestranklevel": 4,
+              "highestrating": 963
+            },
+            "2v2": {
+              "statgroup_id": 157048,
+              "leaderboard_id": 2130300,
+              "wins": 40,
+              "losses": 53,
+              "streak": 2,
+              "disputes": 0,
+              "drops": 0,
+              "rank": 3889,
+              "ranktotal": 4558,
+              "ranklevel": 4,
+              "rating": 822,
+              "regionrank": 1794,
+              "regionranktotal": 2083,
+              "lastmatchdate": 1740872604,
+              "highestrank": 1776,
+              "highestranklevel": 4,
+              "highestrating": 887
+            },
+            "3v3": {
+              "statgroup_id": 157048,
+              "leaderboard_id": 2130329,
+              "wins": 36,
+              "losses": 49,
+              "streak": 3,
+              "disputes": 0,
+              "drops": 1,
+              "rank": 6361,
+              "ranktotal": 7661,
+              "ranklevel": 4,
+              "rating": 826,
+              "regionrank": 2616,
+              "regionranktotal": 3164,
+              "lastmatchdate": 1740866674,
+              "highestrank": 2950,
+              "highestranklevel": 4,
+              "highestrating": 895
+            },
+            "4v4": {
+              "statgroup_id": 157048,
+              "leaderboard_id": 2130353,
+              "wins": 1,
+              "losses": 0,
+              "streak": 1,
+              "disputes": 0,
+              "drops": 0,
+              "rank": -1,
+              "ranktotal": -1,
+              "ranklevel": -1,
+              "rating": 1054,
+              "regionrank": -1,
+              "regionranktotal": -1,
+              "lastmatchdate": 1697242998,
+              "highestrank": 0,
+              "highestranklevel": 0,
+              "highestrating": 0
+            }
+          },
+          "dak": {
+            "1v1": {
+              "statgroup_id": 157048,
+              "leaderboard_id": 2130259,
+              "wins": 10,
+              "losses": 13,
+              "streak": -1,
+              "disputes": 0,
+              "drops": 0,
+              "rank": -1,
+              "ranktotal": 1626,
+              "ranklevel": 0,
+              "rating": 839,
+              "regionrank": -1,
+              "regionranktotal": 722,
+              "lastmatchdate": 1722363167,
+              "highestrank": 977,
+              "highestranklevel": 4,
+              "highestrating": 872
+            },
+            "2v2": {
+              "statgroup_id": 157048,
+              "leaderboard_id": 2130304,
+              "wins": 4,
+              "losses": 6,
+              "streak": 1,
+              "disputes": 0,
+              "drops": 0,
+              "rank": 3110,
+              "ranktotal": 3819,
+              "ranklevel": 4,
+              "rating": 891,
+              "regionrank": 1555,
+              "regionranktotal": 1942,
+              "lastmatchdate": 1740511190,
+              "highestrank": 2483,
+              "highestranklevel": 4,
+              "highestrating": 891
+            },
+            "3v3": {
+              "statgroup_id": 157048,
+              "leaderboard_id": 2130333,
+              "wins": 7,
+              "losses": 17,
+              "streak": -1,
+              "disputes": 0,
+              "drops": 0,
+              "rank": 6380,
+              "ranktotal": 6575,
+              "ranklevel": 3,
+              "rating": 691,
+              "regionrank": 2957,
+              "regionranktotal": 3059,
+              "lastmatchdate": 1740790679,
+              "highestrank": 3364,
+              "highestranklevel": 3,
+              "highestrating": 788
+            },
+            "4v4": {
+              "statgroup_id": 157048,
+              "leaderboard_id": 2130358,
+              "wins": 0,
+              "losses": 3,
+              "streak": -3,
+              "disputes": 0,
+              "drops": 0,
+              "rank": -1,
+              "ranktotal": -1,
+              "ranklevel": -1,
+              "rating": 888,
+              "regionrank": -1,
+              "regionranktotal": -1,
+              "lastmatchdate": 1710545624,
+              "highestrank": 0,
+              "highestranklevel": 0,
+              "highestrating": 0
+            }
+          },
+          "british": {
+            "1v1": {
+              "statgroup_id": 157048,
+              "leaderboard_id": 2130257,
+              "wins": 0,
+              "losses": 1,
+              "streak": -1,
+              "disputes": 0,
+              "drops": 0,
+              "rank": -1,
+              "ranktotal": -1,
+              "ranklevel": -1,
+              "rating": 964,
+              "regionrank": -1,
+              "regionranktotal": -1,
+              "lastmatchdate": 1722360229,
+              "highestrank": 0,
+              "highestranklevel": 0,
+              "highestrating": 0
+            },
+            "2v2": {
+              "statgroup_id": 157048,
+              "leaderboard_id": 2130302,
+              "wins": 4,
+              "losses": 6,
+              "streak": -1,
+              "disputes": 0,
+              "drops": 0,
+              "rank": -1,
+              "ranktotal": 4424,
+              "ranklevel": 0,
+              "rating": 924,
+              "regionrank": -1,
+              "regionranktotal": 2191,
+              "lastmatchdate": 1738519062,
+              "highestrank": 2264,
+              "highestranklevel": 4,
+              "highestrating": 924
+            },
+            "3v3": {
+              "statgroup_id": 157048,
+              "leaderboard_id": 2130331,
+              "wins": 3,
+              "losses": 3,
+              "streak": -2,
+              "disputes": 0,
+              "drops": 0,
+              "rank": -1,
+              "ranktotal": -1,
+              "ranklevel": -1,
+              "rating": 956,
+              "regionrank": -1,
+              "regionranktotal": -1,
+              "lastmatchdate": 1738519826,
+              "highestrank": 0,
+              "highestranklevel": 0,
+              "highestrating": 0
+            },
+            "4v4": null
+          }
+        },
+        "info": {
+          "relicID": 73550,
+          "name": "seju-fuminguez",
+          "country": "es",
+          "level": 3791,
+          "xp": 3791,
+          "steamID": "76561198048940822"
+        },
+        "highestRankTier": {
+          "tier": {
+            "name": "Bronze 3",
+            "url": "/icons/ranks/02_bronze_03_medium.webp",
+            "min": 800,
+            "max": 999,
+            "rank": 0,
+            "order": 17
+          },
+          "info": {
+            "type": "3v3",
+            "race": "american"
+          }
+        },
+        "steamData": {
+          "steamid": "76561198048940822",
+          "profileurl": "https://steamcommunity.com/profiles/76561198048940822/",
+          "avatarmedium": "https://avatars.steamstatic.com/207afc507b50b23c4386b9617b9af516da31bddb_medium.jpg"
+        },
+        "COH3PlayTime": 20415
+      },
+      "error": null,
+      "playerStatsData": {
+        "activityByWeekDay": [
+          {
+            "day": "Mo",
+            "value": 15,
+            "wins": 7,
+            "losses": 8
+          },
+          {
+            "day": "Tu",
+            "value": 23,
+            "wins": 9,
+            "losses": 14
+          },
+          {
+            "day": "We",
+            "value": 19,
+            "wins": 7,
+            "losses": 12
+          },
+          {
+            "day": "Th",
+            "value": 24,
+            "wins": 15,
+            "losses": 9
+          },
+          {
+            "day": "Fr",
+            "value": 52,
+            "wins": 20,
+            "losses": 32
+          },
+          {
+            "day": "Sa",
+            "value": 26,
+            "wins": 14,
+            "losses": 12
+          },
+          {
+            "day": "Su",
+            "value": 33,
+            "wins": 10,
+            "losses": 23
+          }
+        ],
+        "activityByDate": [
+          {
+            "day": "2023-12-23",
+            "value": -2,
+            "wins": 0,
+            "losses": 2
+          },
+          {
+            "day": "2024-05-21",
+            "value": -3,
+            "wins": 0,
+            "losses": 3
+          },
+          {
+            "day": "2024-09-27",
+            "value": -2,
+            "wins": 2,
+            "losses": 4
+          },
+          {
+            "day": "2024-05-22",
+            "value": -2,
+            "wins": 0,
+            "losses": 2
+          },
+          {
+            "day": "2024-05-26",
+            "value": 0,
+            "wins": 2,
+            "losses": 2
+          },
+          {
+            "day": "2024-08-12",
+            "value": 1,
+            "wins": 2,
+            "losses": 1
+          },
+          {
+            "day": "2024-05-24",
+            "value": 0,
+            "wins": 1,
+            "losses": 1
+          },
+          {
+            "day": "2023-08-08",
+            "value": 1,
+            "wins": 2,
+            "losses": 1
+          },
+          {
+            "day": "2024-02-24",
+            "value": 2,
+            "wins": 2,
+            "losses": 0
+          },
+          {
+            "day": "2023-09-17",
+            "value": -2,
+            "wins": 0,
+            "losses": 2
+          },
+          {
+            "day": "2024-04-04",
+            "value": -1,
+            "wins": 0,
+            "losses": 1
+          },
+          {
+            "day": "2023-08-04",
+            "value": 2,
+            "wins": 4,
+            "losses": 2
+          },
+          {
+            "day": "2023-06-23",
+            "value": -1,
+            "wins": 0,
+            "losses": 1
+          },
+          {
+            "day": "2023-11-01",
+            "value": -1,
+            "wins": 0,
+            "losses": 1
+          },
+          {
+            "day": "2023-07-31",
+            "value": -1,
+            "wins": 1,
+            "losses": 2
+          },
+          {
+            "day": "2023-12-15",
+            "value": 0,
+            "wins": 1,
+            "losses": 1
+          },
+          {
+            "day": "2023-11-07",
+            "value": -1,
+            "wins": 1,
+            "losses": 2
+          },
+          {
+            "day": "2024-07-30",
+            "value": -3,
+            "wins": 0,
+            "losses": 3
+          },
+          {
+            "day": "2024-05-11",
+            "value": 0,
+            "wins": 1,
+            "losses": 1
+          },
+          {
+            "day": "2024-06-21",
+            "value": -3,
+            "wins": 0,
+            "losses": 3
+          },
+          {
+            "day": "2024-06-27",
+            "value": 4,
+            "wins": 5,
+            "losses": 1
+          },
+          {
+            "day": "2024-01-10",
+            "value": -2,
+            "wins": 0,
+            "losses": 2
+          },
+          {
+            "day": "2023-10-08",
+            "value": -3,
+            "wins": 0,
+            "losses": 3
+          },
+          {
+            "day": "2023-10-09",
+            "value": -1,
+            "wins": 2,
+            "losses": 3
+          },
+          {
+            "day": "2024-05-08",
+            "value": 1,
+            "wins": 1,
+            "losses": 0
+          },
+          {
+            "day": "2024-02-16",
+            "value": -2,
+            "wins": 0,
+            "losses": 2
+          },
+          {
+            "day": "2024-03-25",
+            "value": 1,
+            "wins": 1,
+            "losses": 0
+          },
+          {
+            "day": "2024-01-06",
+            "value": 2,
+            "wins": 2,
+            "losses": 0
+          },
+          {
+            "day": "2024-02-18",
+            "value": -1,
+            "wins": 0,
+            "losses": 1
+          },
+          {
+            "day": "2023-09-24",
+            "value": 0,
+            "wins": 1,
+            "losses": 1
+          },
+          {
+            "day": "2023-11-13",
+            "value": 1,
+            "wins": 1,
+            "losses": 0
+          },
+          {
+            "day": "2023-09-23",
+            "value": -2,
+            "wins": 1,
+            "losses": 3
+          },
+          {
+            "day": "2023-10-01",
+            "value": -2,
+            "wins": 0,
+            "losses": 2
+          },
+          {
+            "day": "2023-09-21",
+            "value": 1,
+            "wins": 1,
+            "losses": 0
+          },
+          {
+            "day": "2023-12-26",
+            "value": -1,
+            "wins": 1,
+            "losses": 2
+          },
+          {
+            "day": "2024-09-08",
+            "value": -2,
+            "wins": 0,
+            "losses": 2
+          },
+          {
+            "day": "2024-05-01",
+            "value": -1,
+            "wins": 2,
+            "losses": 3
+          },
+          {
+            "day": "2024-03-16",
+            "value": -1,
+            "wins": 0,
+            "losses": 1
+          },
+          {
+            "day": "2024-02-04",
+            "value": -1,
+            "wins": 0,
+            "losses": 1
+          },
+          {
+            "day": "2024-03-15",
+            "value": -1,
+            "wins": 1,
+            "losses": 2
+          },
+          {
+            "day": "2024-04-27",
+            "value": -1,
+            "wins": 0,
+            "losses": 1
+          },
+          {
+            "day": "2024-06-06",
+            "value": 3,
+            "wins": 4,
+            "losses": 1
+          },
+          {
+            "day": "2023-07-13",
+            "value": 1,
+            "wins": 1,
+            "losses": 0
+          },
+          {
+            "day": "2023-10-12",
+            "value": -1,
+            "wins": 0,
+            "losses": 1
+          },
+          {
+            "day": "2023-10-13",
+            "value": -3,
+            "wins": 2,
+            "losses": 5
+          },
+          {
+            "day": "2023-10-14",
+            "value": 1,
+            "wins": 1,
+            "losses": 0
+          },
+          {
+            "day": "2023-11-29",
+            "value": -1,
+            "wins": 0,
+            "losses": 1
+          },
+          {
+            "day": "2024-04-20",
+            "value": -1,
+            "wins": 0,
+            "losses": 1
+          },
+          {
+            "day": "2024-07-12",
+            "value": -1,
+            "wins": 0,
+            "losses": 1
+          },
+          {
+            "day": "2024-05-30",
+            "value": 1,
+            "wins": 2,
+            "losses": 1
+          },
+          {
+            "day": "2024-01-31",
+            "value": 0,
+            "wins": 1,
+            "losses": 1
+          },
+          {
+            "day": "2024-08-22",
+            "value": -2,
+            "wins": 0,
+            "losses": 2
+          },
+          {
+            "day": "2024-03-10",
+            "value": 0,
+            "wins": 1,
+            "losses": 1
+          },
+          {
+            "day": "2024-04-17",
+            "value": 0,
+            "wins": 1,
+            "losses": 1
+          },
+          {
+            "day": "2024-05-28",
+            "value": 0,
+            "wins": 2,
+            "losses": 2
+          },
+          {
+            "day": "2024-07-07",
+            "value": -1,
+            "wins": 2,
+            "losses": 3
+          },
+          {
+            "day": "2024-03-09",
+            "value": 0,
+            "wins": 1,
+            "losses": 1
+          },
+          {
+            "day": "2023-07-25",
+            "value": 2,
+            "wins": 2,
+            "losses": 0
+          },
+          {
+            "day": "2024-04-19",
+            "value": -1,
+            "wins": 0,
+            "losses": 1
+          },
+          {
+            "day": "2023-07-24",
+            "value": -2,
+            "wins": 0,
+            "losses": 2
+          },
+          {
+            "day": "2023-09-01",
+            "value": -2,
+            "wins": 1,
+            "losses": 3
+          },
+          {
+            "day": "2023-08-30",
+            "value": 0,
+            "wins": 1,
+            "losses": 1
+          },
+          {
+            "day": "2023-10-25",
+            "value": 1,
+            "wins": 1,
+            "losses": 0
+          },
+          {
+            "day": "2023-10-27",
+            "value": -1,
+            "wins": 1,
+            "losses": 2
+          },
+          {
+            "day": "2024-11-08",
+            "value": 1,
+            "wins": 1,
+            "losses": 0
+          },
+          {
+            "day": "2024-12-20",
+            "value": 0,
+            "wins": 1,
+            "losses": 1
+          },
+          {
+            "day": "2025-01-02",
+            "value": -1,
+            "wins": 0,
+            "losses": 1
+          },
+          {
+            "day": "2025-01-12",
+            "value": -2,
+            "wins": 0,
+            "losses": 2
+          },
+          {
+            "day": "2025-01-31",
+            "value": 2,
+            "wins": 4,
+            "losses": 2
+          },
+          {
+            "day": "2025-02-02",
+            "value": -2,
+            "wins": 0,
+            "losses": 2
+          },
+          {
+            "day": "2025-02-15",
+            "value": 2,
+            "wins": 2,
+            "losses": 0
+          },
+          {
+            "day": "2025-02-16",
+            "value": 1,
+            "wins": 2,
+            "losses": 1
+          },
+          {
+            "day": "2025-02-20",
+            "value": 0,
+            "wins": 1,
+            "losses": 1
+          },
+          {
+            "day": "2025-02-21",
+            "value": 0,
+            "wins": 1,
+            "losses": 1
+          },
+          {
+            "day": "2025-02-23",
+            "value": 2,
+            "wins": 2,
+            "losses": 0
+          },
+          {
+            "day": "2025-02-25",
+            "value": 0,
+            "wins": 1,
+            "losses": 1
+          },
+          {
+            "day": "2025-03-01",
+            "value": 2,
+            "wins": 4,
+            "losses": 2
+          },
+          {
+            "day": "2025-03-06",
+            "value": 1,
+            "wins": 1,
+            "losses": 0
+          }
+        ],
+        "activityByHour": [
+          {
+            "hour": "0",
+            "value": 3,
+            "wins": 1,
+            "losses": 2
+          },
+          {
+            "hour": "1",
+            "value": 0,
+            "wins": 0,
+            "losses": 0
+          },
+          {
+            "hour": "2",
+            "value": 0,
+            "wins": 0,
+            "losses": 0
+          },
+          {
+            "hour": "3",
+            "value": 0,
+            "wins": 0,
+            "losses": 0
+          },
+          {
+            "hour": "4",
+            "value": 0,
+            "wins": 0,
+            "losses": 0
+          },
+          {
+            "hour": "5",
+            "value": 0,
+            "wins": 0,
+            "losses": 0
+          },
+          {
+            "hour": "6",
+            "value": 0,
+            "wins": 0,
+            "losses": 0
+          },
+          {
+            "hour": "7",
+            "value": 0,
+            "wins": 0,
+            "losses": 0
+          },
+          {
+            "hour": "8",
+            "value": 0,
+            "wins": 0,
+            "losses": 0
+          },
+          {
+            "hour": "9",
+            "value": 0,
+            "wins": 0,
+            "losses": 0
+          },
+          {
+            "hour": "10",
+            "value": 0,
+            "wins": 0,
+            "losses": 0
+          },
+          {
+            "hour": "11",
+            "value": 2,
+            "wins": 1,
+            "losses": 1
+          },
+          {
+            "hour": "12",
+            "value": 0,
+            "wins": 0,
+            "losses": 0
+          },
+          {
+            "hour": "13",
+            "value": 0,
+            "wins": 0,
+            "losses": 0
+          },
+          {
+            "hour": "14",
+            "value": 1,
+            "wins": 1,
+            "losses": 0
+          },
+          {
+            "hour": "15",
+            "value": 11,
+            "wins": 4,
+            "losses": 7
+          },
+          {
+            "hour": "16",
+            "value": 21,
+            "wins": 9,
+            "losses": 12
+          },
+          {
+            "hour": "17",
+            "value": 42,
+            "wins": 18,
+            "losses": 24
+          },
+          {
+            "hour": "18",
+            "value": 32,
+            "wins": 14,
+            "losses": 18
+          },
+          {
+            "hour": "19",
+            "value": 18,
+            "wins": 9,
+            "losses": 9
+          },
+          {
+            "hour": "20",
+            "value": 6,
+            "wins": 5,
+            "losses": 1
+          },
+          {
+            "hour": "21",
+            "value": 20,
+            "wins": 9,
+            "losses": 11
+          },
+          {
+            "hour": "22",
+            "value": 23,
+            "wins": 6,
+            "losses": 17
+          },
+          {
+            "hour": "23",
+            "value": 13,
+            "wins": 5,
+            "losses": 8
+          }
+        ],
+        "nemesis": [
+          {
+            "profile_id": "19086",
+            "w": 3,
+            "alias": "alphazaheer",
+            "l": 1,
+            "c": "pk"
+          },
+          {
+            "profile_id": "762599",
+            "w": 2,
+            "alias": "Nibor1000",
+            "l": 0,
+            "c": "gb"
+          },
+          {
+            "profile_id": "851748",
+            "w": 0,
+            "alias": "Anubis",
+            "l": 2,
+            "c": "us"
+          }
+        ],
+        "customGamesHidden": false,
+        "statGroups": {
+          "1v1": {
+            "german": {
+              "gameTime": 13816,
+              "gameTimeSpread": {
+                "0": {
+                  "w": 2,
+                  "l": 0
+                },
+                "5": {
+                  "w": 0,
+                  "l": 0
+                },
+                "10": {
+                  "w": 0,
+                  "l": 2
+                },
+                "20": {
+                  "w": 0,
+                  "l": 5
+                },
+                "30": {
+                  "w": 0,
+                  "l": 1
+                },
+                "40": {
+                  "w": 1,
+                  "l": 0
+                },
+                "50": {
+                  "w": 0,
+                  "l": 0
+                },
+                "60": {
+                  "w": 0,
+                  "l": 0
+                }
+              },
+              "maps": {
+                "pachino_2p": {
+                  "w": 1,
+                  "l": 3
+                },
+                "twin_beach_2p_mkii": {
+                  "w": 1,
+                  "l": 0
+                },
+                "cliff_crossing_2p": {
+                  "w": 0,
+                  "l": 1
+                },
+                "desert_village_2p_mkiii": {
+                  "w": 1,
+                  "l": 4
+                }
+              },
+              "counters": {
+                "unitprod": 442,
+                "vvetrank": 108,
+                "cabil": 50,
+                "dmgdone": 59411,
+                "plost": 220,
+                "svetrank": 25,
+                "reqmax": 0,
+                "cpearn": 53,
+                "reqspnt": 0,
+                "powearn": 0,
+                "blost": 7,
+                "elitekill": 20,
+                "edeaths": 714,
+                "structdmg": 20,
+                "pcap": 295,
+                "inactperiod": 293,
+                "lowintperiod": 0,
+                "precap": 217,
+                "sqkill": 44,
+                "popmax": 0,
+                "powspnt": 0,
+                "sqprod": 123,
+                "bprod": 83,
+                "svetxp": 34990,
+                "vabnd": 0,
+                "addonkill": 554,
+                "totalcmds": 6363,
+                "gammaspnt": 0,
+                "vkill": 19,
+                "objdmh": 0,
+                "abil": 390,
+                "sqlost": 74,
+                "vcap": 0,
+                "vlost": 27,
+                "gt": 13636,
+                "upg": 393,
+                "vvetxp": 128500,
+                "reqearn": 0,
+                "vp1": 0,
+                "vp0": 0,
+                "erein": 497,
+                "cflags": 0,
+                "wpnpu": 6,
+                "ekills": 578,
+                "powmax": 0,
+                "vprod": 35
+              },
+              "w": 3,
+              "l": 8,
+              "factionMatrix": {
+                "WxB": {
+                  "wins": 0,
+                  "losses": 2
+                },
+                "WxA": {
+                  "wins": 3,
+                  "losses": 6
+                }
+              }
+            },
+            "american": {
+              "gameTime": 27532,
+              "gameTimeSpread": {
+                "0": {
+                  "w": 3,
+                  "l": 0
+                },
+                "5": {
+                  "w": 0,
+                  "l": 0
+                },
+                "10": {
+                  "w": 5,
+                  "l": 5
+                },
+                "20": {
+                  "w": 3,
+                  "l": 3
+                },
+                "30": {
+                  "w": 0,
+                  "l": 1
+                },
+                "40": {
+                  "w": 2,
+                  "l": 0
+                },
+                "50": {
+                  "w": 0,
+                  "l": 1
+                },
+                "60": {
+                  "w": 0,
+                  "l": 0
+                }
+              },
+              "maps": {
+                "faymonville": {
+                  "w": 0,
+                  "l": 2
+                },
+                "pachino_2p": {
+                  "w": 2,
+                  "l": 0
+                },
+                "twin_beach_2p_mkii": {
+                  "w": 2,
+                  "l": 2
+                },
+                "cliff_crossing_2p": {
+                  "w": 1,
+                  "l": 2
+                },
+                "villa_fiore_2p_mkii": {
+                  "w": 3,
+                  "l": 2
+                },
+                "semois_2p": {
+                  "w": 4,
+                  "l": 0
+                },
+                "rural_town_2p_mkii": {
+                  "w": 1,
+                  "l": 2
+                }
+              },
+              "counters": {
+                "unitprod": 967,
+                "vvetrank": 159,
+                "cabil": 108,
+                "dmgdone": 132613,
+                "plost": 435,
+                "svetrank": 39,
+                "reqmax": 0,
+                "cpearn": 111,
+                "reqspnt": 0,
+                "powearn": 0,
+                "blost": 9,
+                "elitekill": 60,
+                "edeaths": 1458,
+                "structdmg": 89,
+                "pcap": 630,
+                "inactperiod": 614,
+                "lowintperiod": 0,
+                "precap": 443,
+                "sqkill": 104,
+                "popmax": 0,
+                "powspnt": 0,
+                "sqprod": 237,
+                "bprod": 203,
+                "svetxp": 64950,
+                "vabnd": 0,
+                "addonkill": 1118,
+                "totalcmds": 11953,
+                "gammaspnt": 0,
+                "vkill": 38,
+                "objdmh": 0,
+                "abil": 1048,
+                "sqlost": 135,
+                "vcap": 0,
+                "vlost": 42,
+                "gt": 27219,
+                "upg": 5211,
+                "vvetxp": 185450,
+                "reqearn": 0,
+                "vp1": 0,
+                "vp0": 0,
+                "erein": 1070,
+                "cflags": 0,
+                "wpnpu": 6,
+                "ekills": 1184,
+                "powmax": 0,
+                "vprod": 62
+              },
+              "w": 13,
+              "l": 10,
+              "factionMatrix": {
+                "WxA": {
+                  "wins": 6,
+                  "losses": 9
+                },
+                "DxA": {
+                  "wins": 4,
+                  "losses": 4
+                }
+              }
+            },
+            "dak": {
+              "gameTime": 26017,
+              "gameTimeSpread": {
+                "0": {
+                  "w": 1,
+                  "l": 1
+                },
+                "5": {
+                  "w": 1,
+                  "l": 0
+                },
+                "10": {
+                  "w": 4,
+                  "l": 4
+                },
+                "20": {
+                  "w": 1,
+                  "l": 3
+                },
+                "30": {
+                  "w": 2,
+                  "l": 1
+                },
+                "40": {
+                  "w": 0,
+                  "l": 3
+                },
+                "50": {
+                  "w": 0,
+                  "l": 0
+                },
+                "60": {
+                  "w": 0,
+                  "l": 0
+                }
+              },
+              "maps": {
+                "faymonville": {
+                  "w": 0,
+                  "l": 2
+                },
+                "pachino_2p": {
+                  "w": 0,
+                  "l": 1
+                },
+                "twin_beach_2p_mkii": {
+                  "w": 0,
+                  "l": 3
+                },
+                "cliff_crossing_2p": {
+                  "w": 3,
+                  "l": 1
+                },
+                "villa_fiore_2p_mkii": {
+                  "w": 1,
+                  "l": 1
+                },
+                "desert_village_2p_mkiii": {
+                  "w": 2,
+                  "l": 2
+                },
+                "semois_2p": {
+                  "w": 3,
+                  "l": 2
+                }
+              },
+              "counters": {
+                "unitprod": 880,
+                "vvetrank": 149,
+                "cabil": 111,
+                "dmgdone": 121112,
+                "plost": 397,
+                "svetrank": 69,
+                "reqmax": 0,
+                "cpearn": 119,
+                "reqspnt": 0,
+                "powearn": 0,
+                "blost": 27,
+                "elitekill": 3,
+                "edeaths": 1229,
+                "structdmg": 349,
+                "pcap": 571,
+                "inactperiod": 756,
+                "lowintperiod": 60,
+                "precap": 364,
+                "sqkill": 122,
+                "popmax": 0,
+                "powspnt": 0,
+                "sqprod": 267,
+                "bprod": 161,
+                "svetxp": 85850,
+                "vabnd": 0,
+                "addonkill": 1199,
+                "totalcmds": 11396,
+                "gammaspnt": 0,
+                "vkill": 23,
+                "objdmh": 0,
+                "abil": 1294,
+                "sqlost": 143,
+                "vcap": 0,
+                "vlost": 73,
+                "gt": 25557,
+                "upg": 1226,
+                "vvetxp": 173900,
+                "reqearn": 0,
+                "vp1": 0,
+                "vp0": 0,
+                "erein": 809,
+                "cflags": 0,
+                "wpnpu": 8,
+                "ekills": 1212,
+                "powmax": 0,
+                "vprod": 116
+              },
+              "w": 9,
+              "l": 12,
+              "factionMatrix": {
+                "DxA": {
+                  "wins": 5,
+                  "losses": 8
+                },
+                "DxB": {
+                  "wins": 4,
+                  "losses": 4
+                }
+              }
+            },
+            "british": {
+              "gameTime": 1091,
+              "gameTimeSpread": {
+                "0": {
+                  "w": 0,
+                  "l": 0
+                },
+                "5": {
+                  "w": 0,
+                  "l": 0
+                },
+                "10": {
+                  "w": 0,
+                  "l": 1
+                },
+                "20": {
+                  "w": 0,
+                  "l": 0
+                },
+                "30": {
+                  "w": 0,
+                  "l": 0
+                },
+                "40": {
+                  "w": 0,
+                  "l": 0
+                },
+                "50": {
+                  "w": 0,
+                  "l": 0
+                },
+                "60": {
+                  "w": 0,
+                  "l": 0
+                }
+              },
+              "maps": {
+                "cliff_crossing_2p": {
+                  "w": 0,
+                  "l": 1
+                }
+              },
+              "counters": {
+                "unitprod": 47,
+                "vvetrank": 9,
+                "cabil": 1,
+                "dmgdone": 3874,
+                "plost": 17,
+                "svetrank": 1,
+                "reqmax": 0,
+                "cpearn": 2,
+                "reqspnt": 0,
+                "powearn": 0,
+                "blost": 0,
+                "elitekill": 2,
+                "edeaths": 54,
+                "structdmg": 0,
+                "pcap": 20,
+                "inactperiod": 32,
+                "lowintperiod": 0,
+                "precap": 11,
+                "sqkill": 2,
+                "popmax": 0,
+                "powspnt": 0,
+                "sqprod": 10,
+                "bprod": 7,
+                "svetxp": 600,
+                "vabnd": 0,
+                "addonkill": 29,
+                "totalcmds": 356,
+                "gammaspnt": 0,
+                "vkill": 2,
+                "objdmh": 0,
+                "abil": 41,
+                "sqlost": 7,
+                "vcap": 0,
+                "vlost": 0,
+                "gt": 1071,
+                "upg": 68,
+                "vvetxp": 9700,
+                "reqearn": 0,
+                "vp1": 0,
+                "vp0": 0,
+                "erein": 34,
+                "cflags": 0,
+                "wpnpu": 0,
+                "ekills": 31,
+                "powmax": 0,
+                "vprod": 1
+              },
+              "w": 0,
+              "l": 1,
+              "factionMatrix": {
+                "DxB": {
+                  "wins": 1,
+                  "losses": 0
+                }
+              }
+            }
+          },
+          "2v2": {
+            "german": null,
+            "american": {
+              "gameTime": 90114,
+              "gameTimeSpread": {
+                "0": {
+                  "w": 0,
+                  "l": 1
+                },
+                "5": {
+                  "w": 0,
+                  "l": 0
+                },
+                "10": {
+                  "w": 3,
+                  "l": 10
+                },
+                "20": {
+                  "w": 11,
+                  "l": 14
+                },
+                "30": {
+                  "w": 7,
+                  "l": 3
+                },
+                "40": {
+                  "w": 4,
+                  "l": 3
+                },
+                "50": {
+                  "w": 0,
+                  "l": 0
+                },
+                "60": {
+                  "w": 0,
+                  "l": 0
+                }
+              },
+              "maps": {
+                "rails_and_sand_4p": {
+                  "w": 6,
+                  "l": 4
+                },
+                "rural_town_4p": {
+                  "w": 3,
+                  "l": 12
+                },
+                "eindhoven": {
+                  "w": 2,
+                  "l": 1
+                },
+                "elst_outskirts_4p": {
+                  "w": 0,
+                  "l": 2
+                },
+                "rural_castle_4p": {
+                  "w": 4,
+                  "l": 4
+                },
+                "torrente_4p_mkiii": {
+                  "w": 6,
+                  "l": 5
+                },
+                "primosole_4p": {
+                  "w": 2,
+                  "l": 0
+                },
+                "santuario_4p": {
+                  "w": 1,
+                  "l": 3
+                },
+                "crossing_in_the_woods_4p": {
+                  "w": 1,
+                  "l": 0
+                }
+              },
+              "counters": {
+                "unitprod": 2817,
+                "vvetrank": 490,
+                "cabil": 265,
+                "dmgdone": 421753,
+                "plost": 725,
+                "svetrank": 189,
+                "reqmax": 0,
+                "cpearn": 375,
+                "reqspnt": 0,
+                "powearn": 0,
+                "blost": 56,
+                "elitekill": 200,
+                "edeaths": 4403,
+                "structdmg": 234,
+                "pcap": 1058,
+                "inactperiod": 1709,
+                "lowintperiod": 60,
+                "precap": 757,
+                "sqkill": 476,
+                "popmax": 0,
+                "powspnt": 0,
+                "sqprod": 742,
+                "bprod": 530,
+                "svetxp": 294300,
+                "vabnd": 0,
+                "addonkill": 3431,
+                "totalcmds": 48196,
+                "gammaspnt": 0,
+                "vkill": 178,
+                "objdmh": 0,
+                "abil": 3102,
+                "sqlost": 495,
+                "vcap": 0,
+                "vlost": 157,
+                "gt": 87502,
+                "upg": 36217,
+                "vvetxp": 557350,
+                "reqearn": 0,
+                "vp1": 0,
+                "vp0": 0,
+                "erein": 2891,
+                "cflags": 0,
+                "wpnpu": 26,
+                "ekills": 3655,
+                "powmax": 0,
+                "vprod": 252
+              },
+              "w": 25,
+              "l": 31,
+              "factionMatrix": {
+                "DWxAB": {
+                  "wins": 13,
+                  "losses": 13
+                },
+                "DWxAA": {
+                  "wins": 3,
+                  "losses": 2
+                },
+                "DDxAA": {
+                  "wins": 0,
+                  "losses": 1
+                },
+                "DDxAB": {
+                  "wins": 5,
+                  "losses": 1
+                },
+                "WWxAB": {
+                  "wins": 8,
+                  "losses": 6
+                },
+                "WWxAA": {
+                  "wins": 2,
+                  "losses": 2
+                }
+              }
+            },
+            "dak": {
+              "gameTime": 11230,
+              "gameTimeSpread": {
+                "0": {
+                  "w": 0,
+                  "l": 1
+                },
+                "5": {
+                  "w": 0,
+                  "l": 0
+                },
+                "10": {
+                  "w": 2,
+                  "l": 1
+                },
+                "20": {
+                  "w": 2,
+                  "l": 1
+                },
+                "30": {
+                  "w": 0,
+                  "l": 0
+                },
+                "40": {
+                  "w": 0,
+                  "l": 0
+                },
+                "50": {
+                  "w": 0,
+                  "l": 1
+                },
+                "60": {
+                  "w": 0,
+                  "l": 0
+                }
+              },
+              "maps": {
+                "rails_and_sand_4p": {
+                  "w": 1,
+                  "l": 2
+                },
+                "torrente_4p_mkiii": {
+                  "w": 0,
+                  "l": 1
+                },
+                "santuario_4p": {
+                  "w": 1,
+                  "l": 0
+                },
+                "day_101_4p": {
+                  "w": 1,
+                  "l": 1
+                },
+                "crossing_in_the_woods_4p": {
+                  "w": 1,
+                  "l": 0
+                }
+              },
+              "counters": {
+                "unitprod": 358,
+                "vvetrank": 53,
+                "cabil": 39,
+                "dmgdone": 45020,
+                "plost": 64,
+                "svetrank": 24,
+                "reqmax": 0,
+                "cpearn": 46,
+                "reqspnt": 0,
+                "powearn": 0,
+                "blost": 42,
+                "elitekill": -12,
+                "edeaths": 520,
+                "structdmg": 33,
+                "pcap": 109,
+                "inactperiod": 310,
+                "lowintperiod": 60,
+                "precap": 69,
+                "sqkill": 61,
+                "popmax": 0,
+                "powspnt": 0,
+                "sqprod": 118,
+                "bprod": 65,
+                "svetxp": 29400,
+                "vabnd": 0,
+                "addonkill": 392,
+                "totalcmds": 5331,
+                "gammaspnt": 0,
+                "vkill": 14,
+                "objdmh": 0,
+                "abil": 582,
+                "sqlost": 66,
+                "vcap": 0,
+                "vlost": 31,
+                "gt": 10818,
+                "upg": 891,
+                "vvetxp": 60300,
+                "reqearn": 0,
+                "vp1": 0,
+                "vp0": 0,
+                "erein": 317,
+                "cflags": 0,
+                "wpnpu": 3,
+                "ekills": 382,
+                "powmax": 0,
+                "vprod": 55
+              },
+              "w": 4,
+              "l": 4,
+              "factionMatrix": {
+                "DWxAB": {
+                  "wins": 1,
+                  "losses": 2
+                },
+                "DDxBB": {
+                  "wins": 0,
+                  "losses": 1
+                },
+                "DDxAA": {
+                  "wins": 1,
+                  "losses": 0
+                },
+                "DDxAB": {
+                  "wins": 0,
+                  "losses": 1
+                },
+                "DWxAA": {
+                  "wins": 2,
+                  "losses": 0
+                }
+              }
+            },
+            "british": {
+              "gameTime": 12963,
+              "gameTimeSpread": {
+                "0": {
+                  "w": 0,
+                  "l": 2
+                },
+                "5": {
+                  "w": 0,
+                  "l": 0
+                },
+                "10": {
+                  "w": 1,
+                  "l": 0
+                },
+                "20": {
+                  "w": 0,
+                  "l": 1
+                },
+                "30": {
+                  "w": 3,
+                  "l": 1
+                },
+                "40": {
+                  "w": 0,
+                  "l": 1
+                },
+                "50": {
+                  "w": 0,
+                  "l": 0
+                },
+                "60": {
+                  "w": 0,
+                  "l": 0
+                }
+              },
+              "maps": {
+                "torrente_4p_mkiii": {
+                  "w": 1,
+                  "l": 2
+                },
+                "santuario_4p": {
+                  "w": 2,
+                  "l": 1
+                },
+                "rural_town_4p": {
+                  "w": 0,
+                  "l": 1
+                },
+                "rails_and_sand_4p": {
+                  "w": 1,
+                  "l": 0
+                },
+                "rural_castle_4p": {
+                  "w": 0,
+                  "l": 1
+                }
+              },
+              "counters": {
+                "unitprod": 330,
+                "vvetrank": 67,
+                "cabil": 20,
+                "dmgdone": 60019,
+                "plost": 61,
+                "svetrank": 33,
+                "reqmax": 0,
+                "cpearn": 35,
+                "reqspnt": 0,
+                "powearn": 0,
+                "blost": 15,
+                "elitekill": 27,
+                "edeaths": 452,
+                "structdmg": 704,
+                "pcap": 95,
+                "inactperiod": 222,
+                "lowintperiod": 0,
+                "precap": 73,
+                "sqkill": 72,
+                "popmax": 0,
+                "powspnt": 0,
+                "sqprod": 85,
+                "bprod": 86,
+                "svetxp": 64700,
+                "vabnd": 0,
+                "addonkill": 448,
+                "totalcmds": 4785,
+                "gammaspnt": 0,
+                "vkill": 29,
+                "objdmh": 0,
+                "abil": 551,
+                "sqlost": 51,
+                "vcap": 0,
+                "vlost": 17,
+                "gt": 10821,
+                "upg": 732,
+                "vvetxp": 89600,
+                "reqearn": 0,
+                "vp1": 0,
+                "vp0": 0,
+                "erein": 305,
+                "cflags": 64,
+                "wpnpu": 2,
+                "ekills": 477,
+                "powmax": 0,
+                "vprod": 27
+              },
+              "w": 4,
+              "l": 5,
+              "factionMatrix": {
+                "DDxAB": {
+                  "wins": 1,
+                  "losses": 0
+                },
+                "WWxAB": {
+                  "wins": 1,
+                  "losses": 0
+                },
+                "DWxBB": {
+                  "wins": 2,
+                  "losses": 2
+                },
+                "WWxBB": {
+                  "wins": 0,
+                  "losses": 1
+                },
+                "DDxBB": {
+                  "wins": 0,
+                  "losses": 1
+                },
+                "DWxAB": {
+                  "wins": 1,
+                  "losses": 0
+                }
+              }
+            }
+          },
+          "3v3": {
+            "german": {
+              "gameTime": 8584,
+              "gameTimeSpread": {
+                "0": {
+                  "w": 0,
+                  "l": 0
+                },
+                "5": {
+                  "w": 0,
+                  "l": 0
+                },
+                "10": {
+                  "w": 0,
+                  "l": 1
+                },
+                "20": {
+                  "w": 1,
+                  "l": 1
+                },
+                "30": {
+                  "w": 0,
+                  "l": 1
+                },
+                "40": {
+                  "w": 1,
+                  "l": 0
+                },
+                "50": {
+                  "w": 0,
+                  "l": 0
+                },
+                "60": {
+                  "w": 0,
+                  "l": 0
+                }
+              },
+              "maps": {
+                "desert_airfield_6p_mkii": {
+                  "w": 0,
+                  "l": 1
+                },
+                "mountain_ruins_6p": {
+                  "w": 2,
+                  "l": 1
+                },
+                "gothic_line_8p": {
+                  "w": 0,
+                  "l": 1
+                }
+              },
+              "counters": {
+                "unitprod": 253,
+                "vvetrank": 60,
+                "cabil": 24,
+                "dmgdone": 35454,
+                "plost": 44,
+                "svetrank": 19,
+                "reqmax": 0,
+                "cpearn": 31,
+                "reqspnt": 0,
+                "powearn": 0,
+                "blost": 14,
+                "elitekill": 27,
+                "edeaths": 393,
+                "structdmg": 30,
+                "pcap": 61,
+                "inactperiod": 151,
+                "lowintperiod": 0,
+                "precap": 55,
+                "sqkill": 40,
+                "popmax": 0,
+                "powspnt": 0,
+                "sqprod": 66,
+                "bprod": 33,
+                "svetxp": 21520,
+                "vabnd": 0,
+                "addonkill": 307,
+                "totalcmds": 3917,
+                "gammaspnt": 0,
+                "vkill": 17,
+                "objdmh": 0,
+                "abil": 230,
+                "sqlost": 45,
+                "vcap": 0,
+                "vlost": 9,
+                "gt": 8232,
+                "upg": 307,
+                "vvetxp": 73500,
+                "reqearn": 0,
+                "vp1": 0,
+                "vp0": 0,
+                "erein": 264,
+                "cflags": 0,
+                "wpnpu": 1,
+                "ekills": 334,
+                "powmax": 0,
+                "vprod": 17
+              },
+              "w": 2,
+              "l": 3,
+              "factionMatrix": {
+                "DWWxAAB": {
+                  "wins": 0,
+                  "losses": 1
+                },
+                "DWWxABB": {
+                  "wins": 0,
+                  "losses": 2
+                },
+                "WWWxAAA": {
+                  "wins": 1,
+                  "losses": 0
+                },
+                "WWWxAAB": {
+                  "wins": 1,
+                  "losses": 0
+                }
+              }
+            },
+            "american": {
+              "gameTime": 45238,
+              "gameTimeSpread": {
+                "0": {
+                  "w": 0,
+                  "l": 1
+                },
+                "5": {
+                  "w": 1,
+                  "l": 0
+                },
+                "10": {
+                  "w": 2,
+                  "l": 6
+                },
+                "20": {
+                  "w": 4,
+                  "l": 4
+                },
+                "30": {
+                  "w": 4,
+                  "l": 3
+                },
+                "40": {
+                  "w": 1,
+                  "l": 2
+                },
+                "50": {
+                  "w": 1,
+                  "l": 0
+                },
+                "60": {
+                  "w": 0,
+                  "l": 0
+                }
+              },
+              "maps": {
+                "desert_airfield_6p_mkii": {
+                  "w": 2,
+                  "l": 2
+                },
+                "mountain_ruins_6p": {
+                  "w": 2,
+                  "l": 3
+                },
+                "longstop_hill_6p": {
+                  "w": 3,
+                  "l": 1
+                },
+                "benghazi_6p": {
+                  "w": 1,
+                  "l": 2
+                },
+                "industrial_railyard_6p_mkii": {
+                  "w": 3,
+                  "l": 7
+                },
+                "gothic_line_8p": {
+                  "w": 0,
+                  "l": 1
+                },
+                "montherme_6p": {
+                  "w": 2,
+                  "l": 0
+                }
+              },
+              "counters": {
+                "unitprod": 1377,
+                "vvetrank": 228,
+                "cabil": 182,
+                "dmgdone": 202172,
+                "plost": 227,
+                "svetrank": 80,
+                "reqmax": 0,
+                "cpearn": 176,
+                "reqspnt": 0,
+                "powearn": 0,
+                "blost": 29,
+                "elitekill": 111,
+                "edeaths": 2200,
+                "structdmg": 164,
+                "pcap": 308,
+                "inactperiod": 794,
+                "lowintperiod": 0,
+                "precap": 226,
+                "sqkill": 238,
+                "popmax": 0,
+                "powspnt": 0,
+                "sqprod": 339,
+                "bprod": 252,
+                "svetxp": 133800,
+                "vabnd": 0,
+                "addonkill": 1613,
+                "totalcmds": 22505,
+                "gammaspnt": 0,
+                "vkill": 75,
+                "objdmh": 0,
+                "abil": 1639,
+                "sqlost": 237,
+                "vcap": 0,
+                "vlost": 63,
+                "gt": 42305,
+                "upg": 15856,
+                "vvetxp": 274750,
+                "reqearn": 0,
+                "vp1": 0,
+                "vp0": 0,
+                "erein": 1404,
+                "cflags": 0,
+                "wpnpu": 78,
+                "ekills": 1754,
+                "powmax": 0,
+                "vprod": 101
+              },
+              "w": 13,
+              "l": 16,
+              "factionMatrix": {
+                "DWWxAAB": {
+                  "wins": 2,
+                  "losses": 2
+                },
+                "DDWxABB": {
+                  "wins": 1,
+                  "losses": 1
+                },
+                "DDWxAAA": {
+                  "wins": 0,
+                  "losses": 1
+                },
+                "DDWxAAB": {
+                  "wins": 4,
+                  "losses": 1
+                },
+                "DWWxABB": {
+                  "wins": 6,
+                  "losses": 3
+                },
+                "DWWxAAA": {
+                  "wins": 1,
+                  "losses": 1
+                },
+                "WWWxAAB": {
+                  "wins": 1,
+                  "losses": 2
+                },
+                "WWWxABB": {
+                  "wins": 1,
+                  "losses": 1
+                },
+                "DDDxABB": {
+                  "wins": 0,
+                  "losses": 1
+                }
+              }
+            },
+            "dak": {
+              "gameTime": 26278,
+              "gameTimeSpread": {
+                "0": {
+                  "w": 1,
+                  "l": 1
+                },
+                "5": {
+                  "w": 0,
+                  "l": 0
+                },
+                "10": {
+                  "w": 1,
+                  "l": 7
+                },
+                "20": {
+                  "w": 2,
+                  "l": 4
+                },
+                "30": {
+                  "w": 1,
+                  "l": 1
+                },
+                "40": {
+                  "w": 0,
+                  "l": 2
+                },
+                "50": {
+                  "w": 0,
+                  "l": 0
+                },
+                "60": {
+                  "w": 0,
+                  "l": 0
+                }
+              },
+              "maps": {
+                "montherme_6p": {
+                  "w": 1,
+                  "l": 4
+                },
+                "desert_airfield_6p_mkii": {
+                  "w": 1,
+                  "l": 2
+                },
+                "mountain_ruins_6p": {
+                  "w": 0,
+                  "l": 4
+                },
+                "longstop_hill_6p": {
+                  "w": 2,
+                  "l": 0
+                },
+                "benghazi_6p": {
+                  "w": 0,
+                  "l": 2
+                },
+                "industrial_railyard_6p_mkii": {
+                  "w": 1,
+                  "l": 3
+                }
+              },
+              "counters": {
+                "unitprod": 845,
+                "vvetrank": 140,
+                "cabil": 100,
+                "dmgdone": 118108,
+                "plost": 135,
+                "svetrank": 53,
+                "reqmax": 0,
+                "cpearn": 104,
+                "reqspnt": 0,
+                "powearn": 0,
+                "blost": 29,
+                "elitekill": 30,
+                "edeaths": 1118,
+                "structdmg": 134,
+                "pcap": 191,
+                "inactperiod": 1002,
+                "lowintperiod": 360,
+                "precap": 128,
+                "sqkill": 132,
+                "popmax": 0,
+                "powspnt": 0,
+                "sqprod": 259,
+                "bprod": 117,
+                "svetxp": 64900,
+                "vabnd": 0,
+                "addonkill": 962,
+                "totalcmds": 14988,
+                "gammaspnt": 0,
+                "vkill": 37,
+                "objdmh": 0,
+                "abil": 1345,
+                "sqlost": 151,
+                "vcap": 0,
+                "vlost": 70,
+                "gt": 25580,
+                "upg": 1154,
+                "vvetxp": 155400,
+                "reqearn": 0,
+                "vp1": 0,
+                "vp0": 0,
+                "erein": 813,
+                "cflags": 0,
+                "wpnpu": 5,
+                "ekills": 1014,
+                "powmax": 0,
+                "vprod": 113
+              },
+              "w": 5,
+              "l": 15,
+              "factionMatrix": {
+                "DWWxAAB": {
+                  "wins": 3,
+                  "losses": 5
+                },
+                "DDWxABB": {
+                  "wins": 0,
+                  "losses": 2
+                },
+                "DDWxAAA": {
+                  "wins": 1,
+                  "losses": 1
+                },
+                "DWWxABB": {
+                  "wins": 1,
+                  "losses": 5
+                },
+                "DDWxBBB": {
+                  "wins": 0,
+                  "losses": 2
+                }
+              }
+            },
+            "british": {
+              "gameTime": 7404,
+              "gameTimeSpread": {
+                "0": {
+                  "w": 0,
+                  "l": 0
+                },
+                "5": {
+                  "w": 0,
+                  "l": 0
+                },
+                "10": {
+                  "w": 1,
+                  "l": 2
+                },
+                "20": {
+                  "w": 1,
+                  "l": 1
+                },
+                "30": {
+                  "w": 1,
+                  "l": 0
+                },
+                "40": {
+                  "w": 0,
+                  "l": 0
+                },
+                "50": {
+                  "w": 0,
+                  "l": 0
+                },
+                "60": {
+                  "w": 0,
+                  "l": 0
+                }
+              },
+              "maps": {
+                "montherme_6p": {
+                  "w": 0,
+                  "l": 2
+                },
+                "desert_airfield_6p_mkii": {
+                  "w": 0,
+                  "l": 1
+                },
+                "mountain_ruins_6p": {
+                  "w": 2,
+                  "l": 0
+                },
+                "industrial_railyard_6p_mkii": {
+                  "w": 1,
+                  "l": 0
+                }
+              },
+              "counters": {
+                "unitprod": 230,
+                "vvetrank": 45,
+                "cabil": 13,
+                "dmgdone": 29194,
+                "plost": 31,
+                "svetrank": 16,
+                "reqmax": 0,
+                "cpearn": 14,
+                "reqspnt": 0,
+                "powearn": 0,
+                "blost": 6,
+                "elitekill": 5,
+                "edeaths": 282,
+                "structdmg": 16,
+                "pcap": 52,
+                "inactperiod": 195,
+                "lowintperiod": 0,
+                "precap": 28,
+                "sqkill": 33,
+                "popmax": 0,
+                "powspnt": 0,
+                "sqprod": 66,
+                "bprod": 45,
+                "svetxp": 19900,
+                "vabnd": 0,
+                "addonkill": 268,
+                "totalcmds": 2918,
+                "gammaspnt": 0,
+                "vkill": 14,
+                "objdmh": 0,
+                "abil": 300,
+                "sqlost": 31,
+                "vcap": 0,
+                "vlost": 9,
+                "gt": 6873,
+                "upg": 399,
+                "vvetxp": 48400,
+                "reqearn": 0,
+                "vp1": 0,
+                "vp0": 0,
+                "erein": 191,
+                "cflags": 0,
+                "wpnpu": 2,
+                "ekills": 278,
+                "powmax": 0,
+                "vprod": 22
+              },
+              "w": 3,
+              "l": 3,
+              "factionMatrix": {
+                "DWWxAAB": {
+                  "wins": 0,
+                  "losses": 1
+                },
+                "DDWxABB": {
+                  "wins": 1,
+                  "losses": 0
+                },
+                "DDWxAAB": {
+                  "wins": 1,
+                  "losses": 1
+                },
+                "WWWxAAB": {
+                  "wins": 0,
+                  "losses": 1
+                },
+                "DDDxABB": {
+                  "wins": 1,
+                  "losses": 0
+                }
+              }
+            }
+          },
+          "4v4": {
+            "german": null,
+            "american": {
+              "gameTime": 127,
+              "gameTimeSpread": {
+                "0": {
+                  "w": 1,
+                  "l": 0
+                },
+                "5": {
+                  "w": 0,
+                  "l": 0
+                },
+                "10": {
+                  "w": 0,
+                  "l": 0
+                },
+                "20": {
+                  "w": 0,
+                  "l": 0
+                },
+                "30": {
+                  "w": 0,
+                  "l": 0
+                },
+                "40": {
+                  "w": 0,
+                  "l": 0
+                },
+                "50": {
+                  "w": 0,
+                  "l": 0
+                },
+                "60": {
+                  "w": 0,
+                  "l": 0
+                }
+              },
+              "maps": {
+                "monte_cavo_8p": {
+                  "w": 1,
+                  "l": 0
+                }
+              },
+              "counters": {
+                "unitprod": 7,
+                "vvetrank": 0,
+                "cabil": 1,
+                "dmgdone": 0,
+                "plost": 0,
+                "svetrank": 0,
+                "reqmax": 0,
+                "cpearn": 0,
+                "reqspnt": 0,
+                "powearn": 0,
+                "blost": 0,
+                "elitekill": 0,
+                "edeaths": 0,
+                "structdmg": 0,
+                "pcap": 1,
+                "inactperiod": 22,
+                "lowintperiod": 0,
+                "precap": 0,
+                "sqkill": 0,
+                "popmax": 0,
+                "powspnt": 0,
+                "sqprod": 2,
+                "bprod": 4,
+                "svetxp": 0,
+                "vabnd": 0,
+                "addonkill": 0,
+                "totalcmds": 28,
+                "gammaspnt": 0,
+                "vkill": 0,
+                "objdmh": 0,
+                "abil": 3,
+                "sqlost": 0,
+                "vcap": 0,
+                "vlost": 0,
+                "gt": 112,
+                "upg": 6,
+                "vvetxp": 0,
+                "reqearn": 0,
+                "vp1": 0,
+                "vp0": 0,
+                "erein": 0,
+                "cflags": 0,
+                "wpnpu": 0,
+                "ekills": 0,
+                "powmax": 0,
+                "vprod": 1
+              },
+              "w": 1,
+              "l": 0,
+              "factionMatrix": {
+                "DWWWxAABB": {
+                  "wins": 0,
+                  "losses": 1
+                }
+              }
+            },
+            "dak": {
+              "gameTime": 2411,
+              "gameTimeSpread": {
+                "0": {
+                  "w": 0,
+                  "l": 0
+                },
+                "5": {
+                  "w": 0,
+                  "l": 0
+                },
+                "10": {
+                  "w": 0,
+                  "l": 1
+                },
+                "20": {
+                  "w": 0,
+                  "l": 1
+                },
+                "30": {
+                  "w": 0,
+                  "l": 0
+                },
+                "40": {
+                  "w": 0,
+                  "l": 0
+                },
+                "50": {
+                  "w": 0,
+                  "l": 0
+                },
+                "60": {
+                  "w": 0,
+                  "l": 0
+                }
+              },
+              "maps": {
+                "mountain_ruins_8p_mkii": {
+                  "w": 0,
+                  "l": 1
+                },
+                "monte_cavo_8p": {
+                  "w": 0,
+                  "l": 1
+                }
+              },
+              "counters": {
+                "unitprod": 95,
+                "vvetrank": 8,
+                "cabil": 8,
+                "dmgdone": 7375,
+                "plost": 4,
+                "svetrank": 3,
+                "reqmax": 0,
+                "cpearn": 10,
+                "reqspnt": 0,
+                "powearn": 0,
+                "blost": 1,
+                "elitekill": -12,
+                "edeaths": 138,
+                "structdmg": 0,
+                "pcap": 5,
+                "inactperiod": 116,
+                "lowintperiod": 0,
+                "precap": 4,
+                "sqkill": 12,
+                "popmax": 0,
+                "powspnt": 0,
+                "sqprod": 31,
+                "bprod": 10,
+                "svetxp": 2900,
+                "vabnd": 0,
+                "addonkill": 72,
+                "totalcmds": 1166,
+                "gammaspnt": 0,
+                "vkill": 3,
+                "objdmh": 0,
+                "abil": 97,
+                "sqlost": 24,
+                "vcap": 0,
+                "vlost": 9,
+                "gt": 2370,
+                "upg": 82,
+                "vvetxp": 9500,
+                "reqearn": 0,
+                "vp1": 0,
+                "vp0": 0,
+                "erein": 63,
+                "cflags": 0,
+                "wpnpu": 0,
+                "ekills": 60,
+                "powmax": 0,
+                "vprod": 16
+              },
+              "w": 0,
+              "l": 2,
+              "factionMatrix": {
+                "DDWWxAAAA": {
+                  "wins": 0,
+                  "losses": 1
+                },
+                "DWWWxABBB": {
+                  "wins": 0,
+                  "losses": 1
+                }
+              }
+            },
+            "british": null
+          }
+        },
+        "leaderBoardStats": {
+          "1v1": {
+            "german": {
+              "leaderboard_id": 2130261,
+              "wins": 3,
+              "rating": 831,
+              "rank": 1445,
+              "ranklevel": 4,
+              "losses": 7,
+              "statgroup_id": 157048,
+              "history": [
+                {
+                  "r": 1445,
+                  "rt": 831,
+                  "w": 3,
+                  "rl": 4,
+                  "l": 7,
+                  "ts": {
+                    "_seconds": 1716433326,
+                    "_nanoseconds": 931000000
+                  },
+                  "date": "2024-05-23"
+                },
+                {
+                  "r": 1463,
+                  "rt": 803,
+                  "w": 3,
+                  "rl": 4,
+                  "l": 8,
+                  "ts": {
+                    "_seconds": 1717124483,
+                    "_nanoseconds": 87000000
+                  },
+                  "date": "2024-05-31"
+                }
+              ]
+            },
+            "american": {
+              "leaderboard_id": 2130255,
+              "wins": 3,
+              "rating": 848,
+              "rank": 1269,
+              "ranklevel": 4,
+              "losses": 7,
+              "statgroup_id": 157048,
+              "history": [
+                {
+                  "r": 1269,
+                  "rt": 848,
+                  "w": 3,
+                  "rl": 4,
+                  "l": 7,
+                  "ts": {
+                    "_seconds": 1715483035,
+                    "_nanoseconds": 704000000
+                  },
+                  "date": "2024-05-12"
+                },
+                {
+                  "r": 1399,
+                  "rt": 819,
+                  "w": 3,
+                  "rl": 4,
+                  "l": 8,
+                  "ts": {
+                    "_seconds": 1716606119,
+                    "_nanoseconds": 618000000
+                  },
+                  "date": "2024-05-25"
+                },
+                {
+                  "r": 1404,
+                  "rt": 823,
+                  "w": 4,
+                  "rl": 4,
+                  "l": 9,
+                  "ts": {
+                    "_seconds": 1716951780,
+                    "_nanoseconds": 346000000
+                  },
+                  "date": "2024-05-29"
+                },
+                {
+                  "r": 1305,
+                  "rt": 871,
+                  "w": 6,
+                  "rl": 4,
+                  "l": 9,
+                  "ts": {
+                    "_seconds": 1717124483,
+                    "_nanoseconds": 87000000
+                  },
+                  "date": "2024-05-31"
+                },
+                {
+                  "r": 1137,
+                  "rt": 938,
+                  "w": 10,
+                  "rl": 4,
+                  "l": 10,
+                  "ts": {
+                    "_seconds": 1717729319,
+                    "_nanoseconds": 776000000
+                  },
+                  "date": "2024-06-07"
+                },
+                {
+                  "r": 952,
+                  "rt": 963,
+                  "w": 13,
+                  "rl": 4,
+                  "l": 11,
+                  "ts": {
+                    "_seconds": 1719543753,
+                    "_nanoseconds": 471000000
+                  },
+                  "date": "2024-06-28"
+                },
+                {
+                  "r": 1202,
+                  "rt": 945,
+                  "w": 13,
+                  "rl": 4,
+                  "l": 12,
+                  "ts": {
+                    "_seconds": 1722395034,
+                    "_nanoseconds": 841000000
+                  },
+                  "date": "2024-07-31"
+                }
+              ]
+            },
+            "dak": {
+              "leaderboard_id": 2130259,
+              "wins": 5,
+              "rating": 816,
+              "rank": 1172,
+              "ranklevel": 4,
+              "losses": 8,
+              "statgroup_id": 157048,
+              "history": [
+                {
+                  "r": 1172,
+                  "rt": 816,
+                  "w": 5,
+                  "rl": 4,
+                  "l": 8,
+                  "ts": {
+                    "_seconds": 1716778985,
+                    "_nanoseconds": 135000000
+                  },
+                  "date": "2024-05-27"
+                },
+                {
+                  "r": 1168,
+                  "rt": 827,
+                  "w": 6,
+                  "rl": 4,
+                  "l": 9,
+                  "ts": {
+                    "_seconds": 1716951780,
+                    "_nanoseconds": 346000000
+                  },
+                  "date": "2024-05-29"
+                },
+                {
+                  "r": 981,
+                  "rt": 872,
+                  "w": 8,
+                  "rl": 4,
+                  "l": 9,
+                  "ts": {
+                    "_seconds": 1719543753,
+                    "_nanoseconds": 471000000
+                  },
+                  "date": "2024-06-28"
+                },
+                {
+                  "r": 983,
+                  "rt": 855,
+                  "w": 10,
+                  "rl": 4,
+                  "l": 12,
+                  "ts": {
+                    "_seconds": 1720407750,
+                    "_nanoseconds": 696000000
+                  },
+                  "date": "2024-07-08"
+                },
+                {
+                  "r": 1188,
+                  "rt": 839,
+                  "w": 10,
+                  "rl": 4,
+                  "l": 13,
+                  "ts": {
+                    "_seconds": 1722395034,
+                    "_nanoseconds": 841000000
+                  },
+                  "date": "2024-07-31"
+                }
+              ]
+            },
+            "british": null
+          },
+          "2v2": {
+            "german": null,
+            "american": {
+              "leaderboard_id": 2130300,
+              "wins": 7,
+              "rating": 795,
+              "rank": 3700,
+              "ranklevel": 3,
+              "losses": 14,
+              "statgroup_id": 157048,
+              "history": [
+                {
+                  "r": 3700,
+                  "rt": 795,
+                  "w": 7,
+                  "rl": 3,
+                  "l": 14,
+                  "ts": {
+                    "_seconds": 1683752017,
+                    "_nanoseconds": 919000000
+                  },
+                  "date": "2023-05-10"
+                },
+                {
+                  "r": 3474,
+                  "rt": 825,
+                  "w": 9,
+                  "rl": 4,
+                  "l": 15,
+                  "ts": {
+                    "_seconds": 1684468833,
+                    "_nanoseconds": 902000000
+                  },
+                  "date": "2023-05-19"
+                },
+                {
+                  "r": 3074,
+                  "rt": 841,
+                  "w": 10,
+                  "rl": 4,
+                  "l": 15,
+                  "ts": {
+                    "_seconds": 1684900831,
+                    "_nanoseconds": 916000000
+                  },
+                  "date": "2023-05-24"
+                },
+                {
+                  "r": 2849,
+                  "rt": 822,
+                  "w": 10,
+                  "rl": 4,
+                  "l": 17,
+                  "ts": {
+                    "_seconds": 1685419232,
+                    "_nanoseconds": 236000000
+                  },
+                  "date": "2023-05-30"
+                },
+                {
+                  "r": 2598,
+                  "rt": 819,
+                  "w": 10,
+                  "rl": 4,
+                  "l": 18,
+                  "ts": {
+                    "_seconds": 1686024028,
+                    "_nanoseconds": 4000000
+                  },
+                  "date": "2023-06-06"
+                },
+                {
+                  "r": 2533,
+                  "rt": 828,
+                  "w": 11,
+                  "rl": 4,
+                  "l": 19,
+                  "ts": {
+                    "_seconds": 1686110464,
+                    "_nanoseconds": 718000000
+                  },
+                  "date": "2023-06-07"
+                },
+                {
+                  "r": 2405,
+                  "rt": 851,
+                  "w": 13,
+                  "rl": 4,
+                  "l": 19,
+                  "ts": {
+                    "_seconds": 1686283231,
+                    "_nanoseconds": 892000000
+                  },
+                  "date": "2023-06-09"
+                },
+                {
+                  "r": 2342,
+                  "rt": 859,
+                  "w": 15,
+                  "rl": 4,
+                  "l": 21,
+                  "ts": {
+                    "_seconds": 1686369659,
+                    "_nanoseconds": 641000000
+                  },
+                  "date": "2023-06-10"
+                },
+                {
+                  "r": 2154,
+                  "rt": 841,
+                  "w": 15,
+                  "rl": 4,
+                  "l": 22,
+                  "ts": {
+                    "_seconds": 1687320027,
+                    "_nanoseconds": 710000000
+                  },
+                  "date": "2023-06-21"
+                },
+                {
+                  "r": 1943,
+                  "rt": 813,
+                  "w": 15,
+                  "rl": 4,
+                  "l": 24,
+                  "ts": {
+                    "_seconds": 1690257629,
+                    "_nanoseconds": 915000000
+                  },
+                  "date": "2023-07-25"
+                },
+                {
+                  "r": 1882,
+                  "rt": 844,
+                  "w": 17,
+                  "rl": 4,
+                  "l": 24,
+                  "ts": {
+                    "_seconds": 1690344040,
+                    "_nanoseconds": 634000000
+                  },
+                  "date": "2023-07-26"
+                },
+                {
+                  "r": 2124,
+                  "rt": 827,
+                  "w": 18,
+                  "rl": 4,
+                  "l": 26,
+                  "ts": {
+                    "_seconds": 1690858840,
+                    "_nanoseconds": 976000000
+                  },
+                  "date": "2023-08-01"
+                },
+                {
+                  "r": 2100,
+                  "rt": 866,
+                  "w": 22,
+                  "rl": 4,
+                  "l": 28,
+                  "ts": {
+                    "_seconds": 1691204445,
+                    "_nanoseconds": 414000000
+                  },
+                  "date": "2023-08-05"
+                },
+                {
+                  "r": 2091,
+                  "rt": 885,
+                  "w": 24,
+                  "rl": 4,
+                  "l": 29,
+                  "ts": {
+                    "_seconds": 1691550038,
+                    "_nanoseconds": 591000000
+                  },
+                  "date": "2023-08-09"
+                },
+                {
+                  "r": 1946,
+                  "rt": 859,
+                  "w": 24,
+                  "rl": 4,
+                  "l": 31,
+                  "ts": {
+                    "_seconds": 1695006103,
+                    "_nanoseconds": 186000000
+                  },
+                  "date": "2023-09-18"
+                },
+                {
+                  "r": 2045,
+                  "rt": 794,
+                  "w": 27,
+                  "rl": 3,
+                  "l": 40,
+                  "ts": {
+                    "_seconds": 1696820445,
+                    "_nanoseconds": 397000000
+                  },
+                  "date": "2023-10-09"
+                },
+                {
+                  "r": 2005,
+                  "rt": 825,
+                  "w": 29,
+                  "rl": 4,
+                  "l": 40,
+                  "ts": {
+                    "_seconds": 1697252459,
+                    "_nanoseconds": 564000000
+                  },
+                  "date": "2023-10-14"
+                },
+                {
+                  "r": 1983,
+                  "rt": 831,
+                  "w": 30,
+                  "rl": 4,
+                  "l": 41,
+                  "ts": {
+                    "_seconds": 1698462045,
+                    "_nanoseconds": 565000000
+                  },
+                  "date": "2023-10-28"
+                },
+                {
+                  "r": 2013,
+                  "rt": 821,
+                  "w": 31,
+                  "rl": 4,
+                  "l": 43,
+                  "ts": {
+                    "_seconds": 1699412504,
+                    "_nanoseconds": 446000000
+                  },
+                  "date": "2023-11-08"
+                },
+                {
+                  "r": 1943,
+                  "rt": 837,
+                  "w": 32,
+                  "rl": 4,
+                  "l": 43,
+                  "ts": {
+                    "_seconds": 1699930847,
+                    "_nanoseconds": 259000000
+                  },
+                  "date": "2023-11-14"
+                },
+                {
+                  "r": 2037,
+                  "rt": 822,
+                  "w": 32,
+                  "rl": 4,
+                  "l": 44,
+                  "ts": {
+                    "_seconds": 1701313245,
+                    "_nanoseconds": 436000000
+                  },
+                  "date": "2023-11-30"
+                },
+                {
+                  "r": 2570,
+                  "rt": 839,
+                  "w": 33,
+                  "rl": 4,
+                  "l": 44,
+                  "ts": {
+                    "_seconds": 1715483035,
+                    "_nanoseconds": 704000000
+                  },
+                  "date": "2024-05-12"
+                },
+                {
+                  "r": 3039,
+                  "rt": 861,
+                  "w": 35,
+                  "rl": 4,
+                  "l": 45,
+                  "ts": {
+                    "_seconds": 1723518157,
+                    "_nanoseconds": 350000000
+                  },
+                  "date": "2024-08-13"
+                },
+                {
+                  "r": 3009,
+                  "rt": 834,
+                  "w": 35,
+                  "rl": 4,
+                  "l": 47,
+                  "ts": {
+                    "_seconds": 1724382142,
+                    "_nanoseconds": 340000000
+                  },
+                  "date": "2024-08-23"
+                },
+                {
+                  "r": 2433,
+                  "rl": 4,
+                  "rt": 851,
+                  "w": 36,
+                  "l": 47,
+                  "ts": {
+                    "_seconds": 1731121373,
+                    "_nanoseconds": 410000000
+                  },
+                  "date": "2024-11-09"
+                },
+                {
+                  "r": 2619,
+                  "rl": 4,
+                  "rt": 848,
+                  "w": 37,
+                  "l": 48,
+                  "ts": {
+                    "_seconds": 1734750164,
+                    "_nanoseconds": 70000000
+                  },
+                  "date": "2024-12-21"
+                },
+                {
+                  "r": 2658,
+                  "rl": 4,
+                  "rt": 839,
+                  "w": 37,
+                  "l": 49,
+                  "ts": {
+                    "_seconds": 1735873414,
+                    "_nanoseconds": 211000000
+                  },
+                  "date": "2025-01-03"
+                },
+                {
+                  "r": 2790,
+                  "rl": 4,
+                  "rt": 814,
+                  "w": 37,
+                  "l": 51,
+                  "ts": {
+                    "_seconds": 1736737389,
+                    "_nanoseconds": 944000000
+                  },
+                  "date": "2025-01-13"
+                },
+                {
+                  "r": 2957,
+                  "rl": 4,
+                  "rt": 815,
+                  "w": 38,
+                  "l": 52,
+                  "ts": {
+                    "_seconds": 1740106872,
+                    "_nanoseconds": 721000000
+                  },
+                  "date": "2025-02-21"
+                },
+                {
+                  "r": 3483,
+                  "rl": 4,
+                  "rt": 822,
+                  "w": 40,
+                  "l": 53,
+                  "ts": {
+                    "_seconds": 1740884485,
+                    "_nanoseconds": 766000000
+                  },
+                  "date": "2025-03-02"
+                }
+              ]
+            },
+            "dak": {
+              "leaderboard_id": 2130304,
+              "wins": 4,
+              "rating": 891,
+              "rank": 2538,
+              "ranklevel": 4,
+              "history": [
+                {
+                  "r": 2538,
+                  "rl": 4,
+                  "rt": 891,
+                  "w": 4,
+                  "l": 6,
+                  "ts": {
+                    "_seconds": 1740538933,
+                    "_nanoseconds": 570000000
+                  },
+                  "date": "2025-02-26"
+                }
+              ],
+              "losses": 6,
+              "statgroup_id": 157048
+            },
+            "british": {
+              "leaderboard_id": 2130302,
+              "wins": 4,
+              "rating": 924,
+              "rank": 2274,
+              "ranklevel": 4,
+              "history": [
+                {
+                  "r": 2274,
+                  "rl": 4,
+                  "rt": 924,
+                  "w": 4,
+                  "l": 6,
+                  "ts": {
+                    "_seconds": 1738551708,
+                    "_nanoseconds": 231000000
+                  },
+                  "date": "2025-02-03"
+                }
+              ],
+              "losses": 6,
+              "statgroup_id": 157048
+            }
+          },
+          "3v3": {
+            "german": null,
+            "american": {
+              "leaderboard_id": 2130329,
+              "wins": 14,
+              "rating": 904,
+              "rank": 4349,
+              "ranklevel": 4,
+              "losses": 19,
+              "statgroup_id": 157048,
+              "history": [
+                {
+                  "r": 4349,
+                  "rt": 904,
+                  "w": 14,
+                  "rl": 4,
+                  "l": 19,
+                  "ts": {
+                    "_seconds": 1683752017,
+                    "_nanoseconds": 919000000
+                  },
+                  "date": "2023-05-10"
+                },
+                {
+                  "r": 4490,
+                  "rt": 891,
+                  "w": 14,
+                  "rl": 4,
+                  "l": 20,
+                  "ts": {
+                    "_seconds": 1683777633,
+                    "_nanoseconds": 873000000
+                  },
+                  "date": "2023-05-11"
+                },
+                {
+                  "r": 4278,
+                  "rt": 906,
+                  "w": 15,
+                  "rl": 4,
+                  "l": 21,
+                  "ts": {
+                    "_seconds": 1684123235,
+                    "_nanoseconds": 254000000
+                  },
+                  "date": "2023-05-15"
+                },
+                {
+                  "r": 4491,
+                  "rt": 854,
+                  "w": 15,
+                  "rl": 4,
+                  "l": 24,
+                  "ts": {
+                    "_seconds": 1684728032,
+                    "_nanoseconds": 687000000
+                  },
+                  "date": "2023-05-22"
+                },
+                {
+                  "r": 4235,
+                  "rt": 871,
+                  "w": 16,
+                  "rl": 4,
+                  "l": 24,
+                  "ts": {
+                    "_seconds": 1684900831,
+                    "_nanoseconds": 916000000
+                  },
+                  "date": "2023-05-24"
+                },
+                {
+                  "r": 3655,
+                  "rt": 912,
+                  "w": 21,
+                  "rl": 4,
+                  "l": 26,
+                  "ts": {
+                    "_seconds": 1685160033,
+                    "_nanoseconds": 446000000
+                  },
+                  "date": "2023-05-27"
+                },
+                {
+                  "r": 3429,
+                  "rt": 901,
+                  "w": 21,
+                  "rl": 4,
+                  "l": 27,
+                  "ts": {
+                    "_seconds": 1685678431,
+                    "_nanoseconds": 891000000
+                  },
+                  "date": "2023-06-02"
+                },
+                {
+                  "r": 3358,
+                  "rt": 887,
+                  "w": 21,
+                  "rl": 4,
+                  "l": 28,
+                  "ts": {
+                    "_seconds": 1686024028,
+                    "_nanoseconds": 4000000
+                  },
+                  "date": "2023-06-06"
+                },
+                {
+                  "r": 2964,
+                  "rt": 897,
+                  "w": 22,
+                  "rl": 4,
+                  "l": 28,
+                  "ts": {
+                    "_seconds": 1687320027,
+                    "_nanoseconds": 710000000
+                  },
+                  "date": "2023-06-21"
+                },
+                {
+                  "r": 2961,
+                  "rt": 895,
+                  "w": 23,
+                  "rl": 4,
+                  "l": 30,
+                  "ts": {
+                    "_seconds": 1687406426,
+                    "_nanoseconds": 458000000
+                  },
+                  "date": "2023-06-22"
+                },
+                {
+                  "r": 3321,
+                  "rt": 850,
+                  "w": 23,
+                  "rl": 4,
+                  "l": 33,
+                  "ts": {
+                    "_seconds": 1687492828,
+                    "_nanoseconds": 512000000
+                  },
+                  "date": "2023-06-23"
+                },
+                {
+                  "r": 3398,
+                  "rt": 837,
+                  "w": 23,
+                  "rl": 4,
+                  "l": 34,
+                  "ts": {
+                    "_seconds": 1687579227,
+                    "_nanoseconds": 224000000
+                  },
+                  "date": "2023-06-24"
+                },
+                {
+                  "r": 2943,
+                  "rt": 851,
+                  "w": 24,
+                  "rl": 4,
+                  "l": 34,
+                  "ts": {
+                    "_seconds": 1689307227,
+                    "_nanoseconds": 482000000
+                  },
+                  "date": "2023-07-14"
+                },
+                {
+                  "r": 3261,
+                  "rt": 844,
+                  "w": 25,
+                  "rl": 4,
+                  "l": 35,
+                  "ts": {
+                    "_seconds": 1693450892,
+                    "_nanoseconds": 868000000
+                  },
+                  "date": "2023-08-31"
+                },
+                {
+                  "r": 3163,
+                  "rt": 807,
+                  "w": 25,
+                  "rl": 4,
+                  "l": 37,
+                  "ts": {
+                    "_seconds": 1697252459,
+                    "_nanoseconds": 564000000
+                  },
+                  "date": "2023-10-14"
+                },
+                {
+                  "r": 3196,
+                  "rt": 815,
+                  "w": 26,
+                  "rl": 4,
+                  "l": 37,
+                  "ts": {
+                    "_seconds": 1698289286,
+                    "_nanoseconds": 887000000
+                  },
+                  "date": "2023-10-26"
+                },
+                {
+                  "r": 3317,
+                  "rt": 797,
+                  "w": 26,
+                  "rl": 3,
+                  "l": 38,
+                  "ts": {
+                    "_seconds": 1698462045,
+                    "_nanoseconds": 565000000
+                  },
+                  "date": "2023-10-28"
+                },
+                {
+                  "r": 4813,
+                  "rt": 833,
+                  "w": 28,
+                  "rl": 4,
+                  "l": 38,
+                  "ts": {
+                    "_seconds": 1704596518,
+                    "_nanoseconds": 556000000
+                  },
+                  "date": "2024-01-07"
+                },
+                {
+                  "r": 4902,
+                  "rt": 805,
+                  "w": 28,
+                  "rl": 4,
+                  "l": 40,
+                  "ts": {
+                    "_seconds": 1704942061,
+                    "_nanoseconds": 220000000
+                  },
+                  "date": "2024-01-11"
+                },
+                {
+                  "r": 4322,
+                  "rt": 804,
+                  "w": 28,
+                  "rl": 4,
+                  "l": 41,
+                  "ts": {
+                    "_seconds": 1706756458,
+                    "_nanoseconds": 930000000
+                  },
+                  "date": "2024-02-01"
+                },
+                {
+                  "r": 3901,
+                  "rt": 806,
+                  "w": 29,
+                  "rl": 4,
+                  "l": 42,
+                  "ts": {
+                    "_seconds": 1710039755,
+                    "_nanoseconds": 650000000
+                  },
+                  "date": "2024-03-10"
+                },
+                {
+                  "r": 4235,
+                  "rt": 812,
+                  "w": 30,
+                  "rl": 4,
+                  "l": 43,
+                  "ts": {
+                    "_seconds": 1714618951,
+                    "_nanoseconds": 149000000
+                  },
+                  "date": "2024-05-02"
+                },
+                {
+                  "r": 5243,
+                  "rt": 778,
+                  "w": 30,
+                  "rl": 3,
+                  "l": 46,
+                  "ts": {
+                    "_seconds": 1719025358,
+                    "_nanoseconds": 653000000
+                  },
+                  "date": "2024-06-22"
+                },
+                {
+                  "r": 4533,
+                  "rt": 766,
+                  "w": 30,
+                  "rl": 3,
+                  "l": 47,
+                  "ts": {
+                    "_seconds": 1720839742,
+                    "_nanoseconds": 923000000
+                  },
+                  "date": "2024-07-13"
+                },
+                {
+                  "r": 4653,
+                  "rt": 771,
+                  "w": 31,
+                  "rl": 3,
+                  "l": 47,
+                  "ts": {
+                    "_seconds": 1727492445,
+                    "_nanoseconds": 307000000
+                  },
+                  "date": "2024-09-28"
+                },
+                {
+                  "r": 4840,
+                  "rl": 3,
+                  "rt": 792,
+                  "w": 33,
+                  "l": 48,
+                  "ts": {
+                    "_seconds": 1739761274,
+                    "_nanoseconds": 161000000
+                  },
+                  "date": "2025-02-17"
+                },
+                {
+                  "r": 4977,
+                  "rl": 3,
+                  "rt": 793,
+                  "w": 34,
+                  "l": 49,
+                  "ts": {
+                    "_seconds": 1740193476,
+                    "_nanoseconds": 526000000
+                  },
+                  "date": "2025-02-22"
+                },
+                {
+                  "r": 5674,
+                  "rl": 4,
+                  "rt": 826,
+                  "w": 36,
+                  "l": 49,
+                  "ts": {
+                    "_seconds": 1740884485,
+                    "_nanoseconds": 766000000
+                  },
+                  "date": "2025-03-02"
+                }
+              ]
+            },
+            "dak": {
+              "leaderboard_id": 2130333,
+              "wins": 2,
+              "rating": 763,
+              "rank": 3364,
+              "ranklevel": 3,
+              "losses": 9,
+              "statgroup_id": 157048,
+              "history": [
+                {
+                  "r": 3364,
+                  "rt": 763,
+                  "w": 2,
+                  "rl": 3,
+                  "l": 9,
+                  "ts": {
+                    "_seconds": 1708138971,
+                    "_nanoseconds": 800000000
+                  },
+                  "date": "2024-02-17"
+                },
+                {
+                  "r": 3487,
+                  "rt": 762,
+                  "w": 3,
+                  "rl": 3,
+                  "l": 10,
+                  "ts": {
+                    "_seconds": 1710558040,
+                    "_nanoseconds": 997000000
+                  },
+                  "date": "2024-03-16"
+                },
+                {
+                  "r": 4399,
+                  "rt": 710,
+                  "w": 3,
+                  "rl": 3,
+                  "l": 12,
+                  "ts": {
+                    "_seconds": 1725850897,
+                    "_nanoseconds": 213000000
+                  },
+                  "date": "2024-09-09"
+                },
+                {
+                  "r": 4456,
+                  "rt": 663,
+                  "w": 4,
+                  "rl": 3,
+                  "l": 16,
+                  "ts": {
+                    "_seconds": 1727492445,
+                    "_nanoseconds": 307000000
+                  },
+                  "date": "2024-09-28"
+                },
+                {
+                  "r": 4841,
+                  "rl": 3,
+                  "rt": 699,
+                  "w": 6,
+                  "l": 16,
+                  "ts": {
+                    "_seconds": 1740366043,
+                    "_nanoseconds": 363000000
+                  },
+                  "date": "2025-02-24"
+                },
+                {
+                  "r": 5478,
+                  "rl": 3,
+                  "rt": 691,
+                  "w": 7,
+                  "l": 17,
+                  "ts": {
+                    "_seconds": 1740798064,
+                    "_nanoseconds": 34000000
+                  },
+                  "date": "2025-03-01"
+                }
+              ]
+            },
+            "british": null
+          },
+          "4v4": {
+            "german": null,
+            "american": null,
+            "dak": null,
+            "british": null
+          }
+        }
+      },
+      "replaysData": null
+    },
+    "__N_SSP": true
+  },
+  "page": "/players/[...playerID]",
+  "query": {
+    "view": "recentMatches",
+    "playerID": [
+      "73550",
+      "seju-fuminguez"
+    ]
+  },
+  "buildId": "CPCBp39EEnQQ-VCSBDS9g",
+  "isFallback": false,
+  "isExperimentalCompile": false,
+  "gssp": true,
+  "scriptLoader": []
+}
