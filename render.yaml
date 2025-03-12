@@ -1,7 +1,15 @@
 services:
   - type: worker
     name: coh3stats-worker
-    env: python
+    runtime: python
+    region: frankfurt  # European region for better latency
     buildCommand: pip install -r requirements.txt
     startCommand: python main.py
-    plan: free 
+    plan: free
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.8
+      - key: MONGO_URI
+        sync: false  # You'll set this in Render dashboard
+    autoDeploy: true
+    healthCheckPath: /healthz 

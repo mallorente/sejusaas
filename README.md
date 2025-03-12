@@ -1,36 +1,76 @@
-# COH3 Stats Analyzer
+# COH3 Stats Custom Games Tracker
 
-This project provides tools to analyze player data and match history from Company of Heroes 3.
+A service that tracks custom games between registered players in Company of Heroes 3.
 
 ## Features
 
-- Fetch player data from coh3stats.com
-- Extract match data using HTML scraping
-- Fetch match data using the API
-- Analyze match history and identify custom games
-- Store data in MongoDB
+- Monitors registered players for new custom games
+- Stores only games between registered players
+- Prevents duplicate game storage
+- Efficient batch processing to stay within free tier limits
 
-## Directory Structure
+## Deployment on Render
 
-- `main.py`: Main application file
-- `fetch_real_matches.py`: API method for fetching match data
-- `extract_from_html.py`: HTML extraction utilities
-- `scrape_with_playwright.py`: Playwright-based scraping
-- `tests/`: Test directory
-- `samples/`: Sample data directory
+1. Fork/Clone this repository to your GitHub account
 
-## Setup
+2. Create a new Render account at https://render.com if you don't have one
 
-1. Install dependencies: `pip install -r requirements.txt`
-2. Configure MongoDB connection in `.env`
-3. Run the application: `python main.py`
+3. In Render Dashboard:
+   - Click "New +"
+   - Select "Blueprint"
+   - Connect your GitHub repository
+   - Select the repository
 
-## Methods
+4. Configure Environment Variables:
+   - `MONGO_URI`: Your MongoDB connection string
+   - `PYTHON_VERSION`: 3.11.8 (already set in render.yaml)
 
-### HTML Scraping
+5. Deploy:
+   - Render will automatically detect the `render.yaml` configuration
+   - Click "Apply" to start the deployment
 
-The application can extract match data from the HTML of a player's page on coh3stats.com. This method is more reliable than the API method, as it extracts data directly from the website.
+## Local Development
 
-### API Method
+1. Create a virtual environment:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
 
-The application can also fetch match data using the coh3stats.com API. This method is used as a fallback if HTML scraping fails.
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. Create a `.env` file with your MongoDB URI:
+   ```
+   MONGO_URI=your_mongodb_connection_string
+   ```
+
+4. Run tests:
+   ```bash
+   python -m pytest tests/
+   ```
+
+5. Run the service:
+   ```bash
+   python main.py
+   ```
+
+## Monitoring
+
+The service will:
+- Check for new games every 15 minutes
+- Process players in batches of 5
+- Log all activities to the console
+- Stay within Render's free tier limits (500 minutes/month)
+
+## Adding Players
+
+Use the MongoDB interface to add players to the `players` collection with the format:
+```json
+{
+    "player_id": "123",
+    "player_name": "player-name"
+}
+```

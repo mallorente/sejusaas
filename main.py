@@ -20,6 +20,11 @@ PLAYERS_COLLECTION = "players"
 MATCHES_COLLECTION = "matches"
 CUSTOM_GAMES_COLLECTION = "custom_games"
 
+# Constants for optimization
+CHECK_INTERVAL = 15 * 60  # 15 minutes in seconds
+BATCH_SIZE = 5  # Number of players to check in each batch
+ERROR_WAIT_TIME = 60  # 1 minute wait on error
+
 # Available maps in the game
 AVAILABLE_MAPS = [
     "Fields of Normandy",
@@ -56,9 +61,26 @@ class COH3StatsAnalyzer:
         # Initialize the real match fetcher
         self.real_match_fetcher = COH3RealMatchFetcher()
         
+        # Track last check time for each player
+        self.last_check_times = {}
+        
     def get_players_to_analyze(self):
         """Get the list of players to analyze from the database"""
-        return list(self.players_collection.find({}))
+        current_time = datetime.now()
+        
+        # Get all players and sort by last check time
+        players = list(self.players_collection.find({}))
+        
+        # Update check times for new players
+        for player in players:
+            player_id = player['player_id']
+            if player_id not in self.last_check_times:
+                self.last_check_times[player_id] = current_time - timedelta(hours=1)
+        
+        # Sort players by last check time (oldest first)
+        players.sort(key=lambda p: self.last_check_times.get(p['player_id'], datetime.min))
+        
+        return players[:BATCH_SIZE]  # Return only the batch size
     
     def add_player(self, player_id, player_name):
         """Add a new player to the database"""
@@ -339,23 +361,116 @@ class COH3StatsAnalyzer:
         """Get all saved custom games"""
         return list(self.custom_games_collection.find().sort("discovered_at", pymongo.DESCENDING))
 
+    def get_player_matches(self, player_id, player_name):
+        """Get matches for a specific player"""
+        try:
+            # Calculate how long since last check
+            last_check = self.last_check_times.get(player_id, datetime.min)
+            hours_since_check = (datetime.now() - last_check).total_seconds() / 3600
+            
+            # Only check last hour if checked recently, otherwise check last day
+            days_back = 1 if hours_since_check > 12 else 0.0417  # 0.0417 days = 1 hour
+            
+            matches = self.real_match_fetcher.fetch_matches_for_player(player_id, player_name, days_back=days_back)
+            
+            # Update last check time
+            self.last_check_times[player_id] = datetime.now()
+            
+            return matches
+        except Exception as e:
+            print(f"Error getting matches for {player_name}: {str(e)}")
+            return []
+    
+    def is_custom_game_between_players(self, match, registered_players):
+        """Check if a match is a custom game between registered players"""
+        # Get all player IDs from the match
+        match_players = []
+        for player in match.get('axis_players', []) + match.get('allies_players', []):
+            match_players.append(player.get('player_id'))
+        
+        # Get all registered player IDs
+        registered_player_ids = [p['player_id'] for p in registered_players]
+        
+        # Check if all players in the match are registered players
+        all_players_registered = all(player_id in registered_player_ids for player_id in match_players)
+        
+        # Check if it's a custom game (match_type should contain "custom" or "Custom")
+        is_custom = 'custom' in match.get('match_type', '').lower()
+        
+        return is_custom and all_players_registered
+    
+    def generate_unique_match_id(self, match):
+        """Generate a unique match ID based on players and timestamp"""
+        # Sort player IDs to ensure consistency
+        player_ids = []
+        for player in match.get('axis_players', []) + match.get('allies_players', []):
+            player_ids.append(player.get('player_id'))
+        player_ids.sort()
+        
+        # Create a unique string combining player IDs and match date
+        unique_string = f"{'-'.join(player_ids)}_{match.get('match_date', '')}"
+        
+        # Use a hash of this string as the match ID
+        import hashlib
+        return hashlib.md5(unique_string.encode()).hexdigest()
+    
+    def check_for_new_games(self):
+        """Check for new custom games between registered players"""
+        print(f"\n[{datetime.now()}] Checking for new custom games...")
+        
+        # Get batch of players to analyze
+        players_batch = self.get_players_to_analyze()
+        if not players_batch:
+            print("No players registered in the database")
+            return
+        
+        print(f"Checking batch of {len(players_batch)} players...")
+        
+        # Get all registered players for validation
+        all_registered_players = list(self.players_collection.find({}))
+        new_games_count = 0
+        
+        # Check each player in the batch
+        for player in players_batch:
+            player_id = player["player_id"]
+            player_name = player["player_name"]
+            
+            print(f"Checking matches for {player_name}...")
+            matches = self.get_player_matches(player_id, player_name)
+            
+            for match in matches:
+                if self.is_custom_game_between_players(match, all_registered_players):
+                    unique_match_id = self.generate_unique_match_id(match)
+                    match['unique_match_id'] = unique_match_id
+                    
+                    if not self.custom_games_collection.find_one({"unique_match_id": unique_match_id}):
+                        match['discovered_at'] = datetime.now()
+                        self.custom_games_collection.insert_one(match)
+                        new_games_count += 1
+                        print(f"New custom game found: {unique_match_id}")
+        
+        print(f"Found {new_games_count} new custom games in this batch")
+
 def main():
     analyzer = COH3StatsAnalyzer()
     
     while True:
         try:
-            # Analyze all players
-            analyzer.analyze_all_players()
+            # Check for new games
+            start_time = time.time()
+            analyzer.check_for_new_games()
+            execution_time = time.time() - start_time
             
-            # Find custom games between players
-            analyzer.find_custom_games_between_players()
+            # Calculate sleep time (ensure minimum 1 minute between checks)
+            sleep_time = max(CHECK_INTERVAL - execution_time, 60)
+            print(f"\nExecution took {execution_time:.1f} seconds")
+            print(f"Waiting {sleep_time/60:.1f} minutes before next batch...")
+            time.sleep(sleep_time)
             
-            # Wait 1 hour before the next execution
-            print("Waiting 1 hour before next update...")
-            time.sleep(3600)
         except Exception as e:
             print(f"Error in main loop: {str(e)}")
-            time.sleep(60)  # Wait 1 minute if there's an error
+            print("Waiting 1 minute before retrying...")
+            time.sleep(ERROR_WAIT_TIME)
 
 if __name__ == "__main__":
     main() 
