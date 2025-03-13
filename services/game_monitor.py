@@ -63,107 +63,135 @@ class GameMonitorService:
         logger.info(f"Selected batch of {len(batch)} players to analyze")
         return batch
     
-    def extract_matches_from_page(self, page, player_id, player_name, is_first_check=False):
-        """Extract match data from the page"""
-        logger.debug(f"Extracting matches for {player_name} (first check: {is_first_check})")
+    def extract_matches_from_page(self, page, player_id, player_name):
+        """Extract match data from the page using the proven approach"""
+        logger.debug(f"Extracting matches for {player_name}")
         matches = []
         
         try:
             # Wait for the match table to be visible
+            logger.debug("Waiting for match table to be visible")
             page.wait_for_selector('table', timeout=30000)
             
-            # Get the page content
-            content = page.content()
-            
-            # Save page content for debugging
-            debug_file = f"page_content_{player_name}.html"
-            with open(debug_file, "w", encoding="utf-8") as f:
-                f.write(content)
-            logger.debug(f"Saved page content to {debug_file}")
-            
-            # Try to get __NEXT_DATA__
+            # Get __NEXT_DATA__ content
+            logger.debug("Attempting to extract __NEXT_DATA__")
             next_data = page.evaluate('''() => {
                 const el = document.getElementById('__NEXT_DATA__');
-                return el ? JSON.parse(el.textContent) : null;
+                if (!el) return null;
+                try {
+                    return JSON.parse(el.textContent);
+                } catch (e) {
+                    return null;
+                }
             }''')
             
             if next_data:
+                # Save for debugging
                 debug_file = f"nextdata_{player_name}.json"
                 with open(debug_file, "w", encoding="utf-8") as f:
                     json.dump(next_data, f, indent=2)
                 logger.debug(f"Saved __NEXT_DATA__ to {debug_file}")
                 
-                # Extract matches from next_data
-                try:
-                    # Try different paths where match data might be located
-                    matches_data = None
-                    page_props = next_data.get("props", {}).get("pageProps", {})
-                    
-                    # Log available keys for debugging
-                    logger.debug(f"Available keys in pageProps: {list(page_props.keys())}")
-                    
-                    if "matches" in page_props:
-                        matches_data = page_props["matches"]
-                    elif "recentMatches" in page_props:
-                        matches_data = page_props["recentMatches"]
-                    elif "playerDataAPI" in page_props:
-                        player_data = page_props["playerDataAPI"]
+                # Process matches from next_data
+                page_props = next_data.get("props", {}).get("pageProps", {})
+                logger.debug(f"Available keys in pageProps: {list(page_props.keys())}")
+                
+                # Try to find matches data
+                matches_data = None
+                
+                # Check different possible paths
+                if "matches" in page_props:
+                    matches_data = page_props["matches"]
+                elif "recentMatches" in page_props:
+                    matches_data = page_props["recentMatches"]
+                elif "playerDataAPI" in page_props:
+                    player_data = page_props["playerDataAPI"]
+                    if isinstance(player_data, dict):
                         if "matches" in player_data:
                             matches_data = player_data["matches"]
                         elif "recentMatches" in player_data:
                             matches_data = player_data["recentMatches"]
-                    
-                    if matches_data:
-                        logger.info(f"Found {len(matches_data)} matches in __NEXT_DATA__")
-                        for match_data in matches_data:
-                            try:
-                                # Extract match details
-                                match_id = match_data.get("matchId") or match_data.get("id")
-                                match_type = match_data.get("matchtype", "Unknown")
-                                match_date = datetime.fromtimestamp(
-                                    match_data.get("completiontime") or 
-                                    match_data.get("startgametime") or 
-                                    time.time()
-                                ).isoformat()
-                                
-                                # Extract players
-                                axis_players = []
-                                allies_players = []
-                                for player in match_data.get("matchhistoryreportresults", []):
-                                    player_info = {
-                                        "player_id": str(player.get("profile_id")),
-                                        "player_name": player.get("profile", {}).get("name")
-                                    }
-                                    # Determine team based on race_id
-                                    if player.get("race_id") in [0, 3]:  # Wehrmacht or DAK
-                                        axis_players.append(player_info)
-                                    else:  # US Forces or British Forces
-                                        allies_players.append(player_info)
-                                
-                                # Create match object
-                                match = {
-                                    "match_id": match_id,
-                                    "player_id": player_id,
-                                    "player_name": player_name,
-                                    "match_date": match_date,
-                                    "match_type": match_type,
-                                    "map_name": match_data.get("mapname", "Unknown"),
-                                    "axis_players": axis_players,
-                                    "allies_players": allies_players,
-                                    "is_custom": match_type == 0,
-                                    "discovered_at": datetime.now().isoformat()
-                                }
-                                matches.append(match)
-                                logger.debug(f"Processed match {match_id}")
-                            
-                            except Exception as e:
-                                logger.error(f"Error processing match: {str(e)}")
-                                continue
                 
-                except Exception as e:
-                    logger.error(f"Error processing __NEXT_DATA__: {str(e)}")
+                # Try dehydratedState as last resort
+                if not matches_data and "dehydratedState" in next_data:
+                    dehydrated = next_data["dehydratedState"]
+                    if "queries" in dehydrated:
+                        for query in dehydrated["queries"]:
+                            if "state" in query and "data" in query["state"]:
+                                data = query["state"]["data"]
+                                if isinstance(data, dict):
+                                    if "matches" in data:
+                                        matches_data = data["matches"]
+                                    elif "recentMatches" in data:
+                                        matches_data = data["recentMatches"]
+                
+                if matches_data:
+                    logger.info(f"Found {len(matches_data)} matches in __NEXT_DATA__")
+                    for match_data in matches_data:
+                        try:
+                            # Extract match details
+                            match_id = str(match_data.get("id", "")) or str(match_data.get("matchId", ""))
+                            match_date = datetime.fromtimestamp(
+                                match_data.get("completiontime", 0) or 
+                                match_data.get("startgametime", 0) or 
+                                time.time()
+                            ).isoformat()
+                            
+                            # Extract players and determine teams
+                            axis_players = []
+                            allies_players = []
+                            
+                            for report in match_data.get("matchhistoryreportresults", []):
+                                player_info = {
+                                    "player_id": str(report.get("profile_id", "")),
+                                    "player_name": report.get("profile", {}).get("name", "Unknown")
+                                }
+                                
+                                # Determine team based on race_id
+                                # 0 = Wehrmacht, 3 = DAK (Axis)
+                                # 1 = US Forces, 2 = British Forces (Allies)
+                                if report.get("race_id") in [0, 3]:
+                                    axis_players.append(player_info)
+                                else:
+                                    allies_players.append(player_info)
+                            
+                            # Determine match type and result
+                            match_type = "custom" if match_data.get("matchtype_id", 1) == 0 else "automatch"
+                            result = "unknown"
+                            for report in match_data.get("matchhistoryreportresults", []):
+                                if str(report.get("profile_id", "")) == str(player_id):
+                                    result_type = report.get("resulttype", -1)
+                                    result = "victory" if result_type == 1 else "defeat" if result_type == 0 else "unknown"
+                            
+                            # Create match object
+                            match = {
+                                "match_id": match_id,
+                                "player_id": player_id,
+                                "player_name": player_name,
+                                "match_date": match_date,
+                                "match_type": match_type,
+                                "match_result": result,
+                                "map_name": match_data.get("mapname", "Unknown"),
+                                "axis_players": axis_players,
+                                "allies_players": allies_players,
+                                "is_custom": match_type == "custom",
+                                "discovered_at": datetime.now().isoformat()
+                            }
+                            
+                            # Generate unique match ID
+                            unique_id = hashlib.md5(
+                                f"{match_date}_{match_id}_{match_type}".encode()
+                            ).hexdigest()
+                            match['unique_match_id'] = unique_id
+                            
+                            matches.append(match)
+                            logger.debug(f"Processed match {match_id} ({match_type})")
+                            
+                        except Exception as e:
+                            logger.error(f"Error processing match data: {str(e)}")
+                            continue
             
-            # If no matches found from __NEXT_DATA__, try extracting from table
+            # If no matches found, try extracting from table
             if not matches:
                 logger.info("No matches found in __NEXT_DATA__, trying table extraction")
                 # Get all rows from the match table
@@ -172,23 +200,72 @@ class GameMonitorService:
                     logger.info(f"Found {len(rows)-1} rows in match table")
                     for row in rows[1:]:  # Skip header row
                         try:
-                            # Extract match data from row
                             cells = row.query_selector_all('td')
                             if len(cells) >= 6:
-                                # Extract match details from cells
+                                # Extract date and time
+                                date_text = cells[0].inner_text().strip()
+                                
+                                # Extract result and rating change
+                                result_cell = cells[1]
+                                result_div = result_cell.query_selector('.matches-table_row-indicator__30FKJ')
+                                result = "victory" if result_div and "win-indicator" in result_div.get_attribute('class') else "defeat"
+                                
+                                # Extract map name
+                                map_name = cells[4].inner_text().strip()
+                                
+                                # Extract game mode and duration
+                                mode_cell = cells[5].inner_text().strip()
+                                match_type = "custom" if "custom" in mode_cell.lower() else "automatch"
+                                
+                                # Extract players
+                                axis_players = []
+                                allies_players = []
+                                
+                                # Process axis players
+                                axis_links = cells[2].query_selector_all('a')
+                                for link in axis_links:
+                                    href = link.get_attribute('href') or ""
+                                    player_id_match = re.search(r'/players/(\d+)', href)
+                                    if player_id_match:
+                                        axis_players.append({
+                                            "player_id": player_id_match.group(1),
+                                            "player_name": link.inner_text().strip()
+                                        })
+                                
+                                # Process allies players
+                                allies_links = cells[3].query_selector_all('a')
+                                for link in allies_links:
+                                    href = link.get_attribute('href') or ""
+                                    player_id_match = re.search(r'/players/(\d+)', href)
+                                    if player_id_match:
+                                        allies_players.append({
+                                            "player_id": player_id_match.group(1),
+                                            "player_name": link.inner_text().strip()
+                                        })
+                                
+                                # Create match object
                                 match = {
                                     "match_id": hashlib.md5(row.inner_text().encode()).hexdigest(),
                                     "player_id": player_id,
                                     "player_name": player_name,
-                                    "match_date": cells[0].inner_text(),
-                                    "match_type": cells[5].inner_text().split()[0],
-                                    "map_name": cells[4].inner_text(),
-                                    "axis_players": self.extract_players_from_cell(cells[2]),
-                                    "allies_players": self.extract_players_from_cell(cells[3]),
+                                    "match_date": date_text,
+                                    "match_type": match_type,
+                                    "match_result": result,
+                                    "map_name": map_name,
+                                    "axis_players": axis_players,
+                                    "allies_players": allies_players,
+                                    "is_custom": match_type == "custom",
                                     "discovered_at": datetime.now().isoformat()
                                 }
+                                
+                                # Generate unique match ID
+                                unique_id = hashlib.md5(
+                                    f"{date_text}_{player_id}_{match_type}".encode()
+                                ).hexdigest()
+                                match['unique_match_id'] = unique_id
+                                
                                 matches.append(match)
-                                logger.debug(f"Processed match from table row")
+                                logger.debug(f"Processed match from table ({match_type})")
                         except Exception as e:
                             logger.error(f"Error processing table row: {str(e)}")
                             continue
@@ -206,26 +283,6 @@ class GameMonitorService:
         except Exception as e:
             logger.error(f"Error extracting matches: {str(e)}")
             return []
-    
-    def extract_players_from_cell(self, cell):
-        """Extract player information from a table cell"""
-        players = []
-        try:
-            # Find all player links in the cell
-            player_links = cell.query_selector_all('a')
-            for link in player_links:
-                href = link.get_attribute('href') or ""
-                player_id_match = re.search(r'/players/(\d+)', href)
-                if player_id_match:
-                    player_id = player_id_match.group(1)
-                    player_name = link.inner_text().strip()
-                    players.append({
-                        "player_id": player_id,
-                        "player_name": player_name
-                    })
-        except Exception as e:
-            logger.error(f"Error extracting players from cell: {str(e)}")
-        return players
     
     def get_player_matches(self, player_id, player_name):
         """Get matches for a specific player"""
@@ -246,27 +303,13 @@ class GameMonitorService:
                 )
                 page = context.new_page()
                 
-                # For first-time checks, get all available matches
-                if is_first_check:
-                    logger.info(f"Performing first-time check for {player_name}")
-                    # Navigate to the all matches page
-                    url = f"https://coh3stats.com/players/{player_id}/{player_name}/matches"
-                    logger.info(f"Navigating to all matches: {url}")
-                    page.goto(url)
-                    matches.extend(self.extract_matches_from_page(page, player_id, player_name, True))
-                
-                # Always check recent matches
+                # Navigate to recent matches
                 url = f"https://coh3stats.com/players/{player_id}/{player_name}/matches?view=recentMatches"
-                logger.info(f"Navigating to recent matches: {url}")
+                logger.info(f"Navigating to: {url}")
                 page.goto(url)
-                recent_matches = self.extract_matches_from_page(page, player_id, player_name, False)
                 
-                # Merge matches, avoiding duplicates
-                existing_ids = {m["match_id"] for m in matches}
-                for match in recent_matches:
-                    if match["match_id"] not in existing_ids:
-                        matches.append(match)
-                        existing_ids.add(match["match_id"])
+                # Extract matches
+                matches = self.extract_matches_from_page(page, player_id, player_name)
                 
                 # Close browser
                 browser.close()
@@ -301,22 +344,15 @@ class GameMonitorService:
                 # Process each match
                 for match in matches:
                     try:
-                        # Generate unique match ID
-                        unique_id = hashlib.md5(
-                            f"{match['match_date']}_{match['player_id']}_{match['match_type']}".encode()
-                        ).hexdigest()
-                        match['unique_match_id'] = unique_id
+                        # Match already has unique_match_id from extraction
+                        unique_id = match['unique_match_id']
                         
-                        # Determine if it's a custom game
-                        is_custom = match.get('is_custom') or 'custom' in match['match_type'].lower()
-                        
-                        if is_custom:
-                            # Check if match already exists
+                        # Save to appropriate collection
+                        if match['is_custom']:
                             if not self.custom_games_collection.find_one({"unique_match_id": unique_id}):
                                 self.custom_games_collection.insert_one(match)
                                 logger.info(f"Saved new custom game: {unique_id}")
                         else:
-                            # Check if match already exists
                             if not self.auto_matches_collection.find_one({"unique_match_id": unique_id}):
                                 self.auto_matches_collection.insert_one(match)
                                 logger.info(f"Saved new auto match: {unique_id}")
