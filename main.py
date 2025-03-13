@@ -10,7 +10,8 @@ import random
 import logging
 import signal
 from dotenv import load_dotenv
-from fetch_real_matches import COH3RealMatchFetcher
+import hashlib
+from playwright.sync_api import sync_playwright
 
 # Configure logging
 LOG_LEVELS = {
@@ -133,9 +134,6 @@ class COH3StatsAnalyzer:
             logger.critical(f"Failed to connect to MongoDB: {str(e)}")
             raise
         
-        # Initialize the real match fetcher
-        self.real_match_fetcher = COH3RealMatchFetcher()
-        
         # Track last check time for each player
         self.last_check_times = {}
         
@@ -247,58 +245,52 @@ class COH3StatsAnalyzer:
     
     def get_real_matches_from_html(self, player_id, player_name):
         """
-        Get real match data by extracting it from the HTML table on the player's page
-        
-        This is an alternative to the simulate_recent_matches function that uses real data
+        Get real match data by extracting it from the HTML table on the player's page using Playwright
         """
-        print(f"Getting real match data for player: {player_name} (ID: {player_id})")
+        logger.info(f"Getting real match data for player: {player_name} (ID: {player_id})")
         
-        # First, we need to get the HTML page
-        html_file_path = f"sejusaas/player_page_playwright_{player_name}.html"
-        
-        # Check if file exists, try alternative paths if not
-        if not os.path.exists(html_file_path):
-            print(f"File not found at {html_file_path}, trying alternative paths...")
-            alternative_paths = [
-                f"player_page_playwright_{player_name}.html",
-                f"sejusaas/player_page_{player_name}.html",
-                f"player_page_{player_name}.html"
-            ]
-            for path in alternative_paths:
-                if os.path.exists(path):
-                    html_file_path = path
-                    print(f"Found file at {html_file_path}")
-                    break
-        
-        if not os.path.exists(html_file_path):
-            print(f"No HTML file found for player {player_name}")
+        try:
+            with sync_playwright() as p:
+                # Launch browser
+                browser = p.chromium.launch()
+                page = browser.new_page()
+                
+                # Go to player's page
+                url = f"https://coh3stats.com/players/{player_id}/{player_name}"
+                logger.debug(f"Navigating to URL: {url}")
+                page.goto(url)
+                
+                # Wait for the matches table to load
+                page.wait_for_selector('table[class*="matches-table"]')
+                
+                # Get the HTML content
+                html_content = page.content()
+                
+                # Close browser
+                browser.close()
+                
+                # Extract match data from the HTML
+                matches = self.extract_match_data_from_table(html_content, player_id, player_name)
+                
+                logger.info(f"Found {len(matches)} matches for player {player_name}")
+                return matches
+            
+        except Exception as e:
+            logger.error(f"Error getting data for {player_name}: {str(e)}")
             return []
-        
-        # Extract match data from the HTML
-        matches = self.extract_match_data_from_table(html_file_path, player_id, player_name)
-        
-        # Save matches to a JSON file for reference
-        output_file = f"matches_table_{player_name}.json"
-        with open(output_file, 'w', encoding='utf-8') as f:
-            json.dump(matches, f, indent=2)
-        
-        return matches
     
-    def extract_match_data_from_table(self, html_file_path, player_id, player_name):
+    def extract_match_data_from_table(self, html_content, player_id, player_name):
         """
         Extract match data from the HTML table in the player page
         """
-        print(f"Extracting match data from {html_file_path}")
-        
-        with open(html_file_path, 'r', encoding='utf-8') as f:
-            html_content = f.read()
+        logger.debug(f"Extracting match data for player {player_name}")
         
         soup = BeautifulSoup(html_content, 'html.parser')
         
-        # Find the match table
-        match_table = soup.find('table')
+        # Find the match table - buscar por la clase específica de la tabla de partidas recientes
+        match_table = soup.find('table', {'class': lambda x: x and 'matches-table' in x})
         if not match_table:
-            print("No match table found in the HTML")
+            logger.warning("No match table found in the HTML")
             return []
         
         # Get all rows except the header
@@ -314,68 +306,64 @@ class COH3StatsAnalyzer:
                 
                 # Extract match date
                 date_cell = cells[0]
-                date_text = date_cell.find('p', {'data-inherit': 'true'}).text.strip()
+                date_text = date_cell.find('time')['datetime'] if date_cell.find('time') else date_cell.get_text(strip=True)
                 
-                # Extract match result
+                # Extract match result and rating change
                 result_cell = cells[1]
-                result_div = result_cell.find('div', {'class': 'matches-table_row-indicator__30FKJ'})
-                if result_div and 'win-indicator' in result_div.get('class', []):
-                    match_result = "Victory"
-                else:
-                    match_result = "Defeat"
+                result_div = result_cell.find('div', {'class': lambda x: x and 'row-indicator' in x})
+                match_result = "Victory" if result_div and 'win-indicator' in result_div.get('class', []) else "Defeat"
                 
-                # Extract rating change
-                rating_badge = result_cell.find('div', {'class': 'm_347db0ec'})
-                rating_change = rating_badge.text.strip() if rating_badge else "Unknown"
+                rating_change = None
+                rating_span = result_cell.find('span', {'class': lambda x: x and ('positive' in x or 'negative' in x)})
+                if rating_span:
+                    rating_change = rating_span.get_text(strip=True)
                 
                 # Extract map
                 map_cell = cells[4]
-                map_name = map_cell.find('p', {'data-size': 'sm'}).text.strip()
+                map_name = map_cell.get_text(strip=True)
                 
                 # Extract game mode and duration
                 mode_cell = cells[5]
-                mode_div = mode_cell.find('div', {'style': 'white-space: nowrap;'})
-                mode = mode_div.text.strip() if mode_div else "Unknown"
-                duration = mode_cell.find('span').text.strip()
+                mode_text = mode_cell.get_text(strip=True)
+                mode_parts = mode_text.split('•') if '•' in mode_text else [mode_text, '']
+                mode = mode_parts[0].strip()
+                duration = mode_parts[1].strip() if len(mode_parts) > 1 else ''
                 
                 # Extract axis players
                 axis_cell = cells[2]
                 axis_players = []
-                for player_div in axis_cell.find_all('div', recursive=False):
-                    player_link = player_div.find('a')
-                    if player_link:
-                        player_href = player_link.get('href', '')
-                        player_id_match = re.search(r'/players/(\d+)', player_href)
-                        if player_id_match:
-                            player_id_from_link = player_id_match.group(1)
-                            player_name_span = player_link.find('span', {'class': ''})
-                            if player_name_span:
-                                player_name_from_link = player_name_span.text.strip()
-                                axis_players.append({
-                                    'player_id': player_id_from_link,
-                                    'player_name': player_name_from_link
-                                })
+                for player_link in axis_cell.find_all('a'):
+                    player_href = player_link.get('href', '')
+                    player_id_match = re.search(r'/players/(\d+)', player_href)
+                    if player_id_match:
+                        player_id_from_link = player_id_match.group(1)
+                        player_name_from_link = player_link.get_text(strip=True)
+                        axis_players.append({
+                            'player_id': player_id_from_link,
+                            'player_name': player_name_from_link
+                        })
                 
                 # Extract allies players
                 allies_cell = cells[3]
                 allies_players = []
-                for player_div in allies_cell.find_all('div', recursive=False):
-                    player_link = player_div.find('a')
-                    if player_link:
-                        player_href = player_link.get('href', '')
-                        player_id_match = re.search(r'/players/(\d+)', player_href)
-                        if player_id_match:
-                            player_id_from_link = player_id_match.group(1)
-                            player_name_span = player_link.find('span', {'class': ''})
-                            if player_name_span:
-                                player_name_from_link = player_name_span.text.strip()
-                                allies_players.append({
-                                    'player_id': player_id_from_link,
-                                    'player_name': player_name_from_link
-                                })
+                for player_link in allies_cell.find_all('a'):
+                    player_href = player_link.get('href', '')
+                    player_id_match = re.search(r'/players/(\d+)', player_href)
+                    if player_id_match:
+                        player_id_from_link = player_id_match.group(1)
+                        player_name_from_link = player_link.get_text(strip=True)
+                        allies_players.append({
+                            'player_id': player_id_from_link,
+                            'player_name': player_name_from_link
+                        })
                 
-                # Generate a unique match ID
-                match_id = f"{player_id}_{len(matches)}"
+                # Generate a unique match ID basado en la fecha y los jugadores
+                match_id_parts = [
+                    date_text,
+                    *[p['player_id'] for p in axis_players],
+                    *[p['player_id'] for p in allies_players]
+                ]
+                match_id = hashlib.md5('_'.join(match_id_parts).encode()).hexdigest()
                 
                 # Create match object
                 match = {
@@ -391,33 +379,26 @@ class COH3StatsAnalyzer:
                     'axis_players': axis_players,
                     'allies_players': allies_players,
                     'is_simulated': False,
-                    'is_scraped': True
+                    'is_scraped': True,
+                    'scraped_at': datetime.now().isoformat()
                 }
                 
                 matches.append(match)
+                logger.debug(f"Processed match {match_id} ({mode} on {map_name})")
                 
             except Exception as e:
-                print(f"Error processing row: {e}")
+                logger.error(f"Error processing match row: {str(e)}")
                 continue
         
-        print(f"Found {len(matches)} matches")
+        logger.info(f"Found {len(matches)} matches for {player_name}")
         return matches
     
     def get_real_matches(self, player_id, player_name, days_back=7):
         """
-        Get real match data for a player
-        
-        This replaces the simulate_recent_matches function with real data
+        Get real match data for a player directly from coh3stats.com
         """
-        # First try to get matches from HTML table
-        matches = self.get_real_matches_from_html(player_id, player_name)
-        
-        # If that fails, fall back to the API method
-        if not matches:
-            print("No matches found in HTML, falling back to API method")
-            matches = self.real_match_fetcher.fetch_matches_for_player(player_id, player_name, days_back)
-        
-        return matches
+        logger.info(f"Getting matches for player {player_name} (days back: {days_back})")
+        return self.get_real_matches_from_html(player_id, player_name)
     
     def analyze_all_players(self):
         """Analyze recent matches for all players in the database"""
@@ -459,13 +440,6 @@ class COH3StatsAnalyzer:
             # Wait a bit between requests to avoid overloading the server
             time.sleep(2)
     
-    def find_custom_games_between_players(self):
-        """
-        Find custom games between registered players
-        and save them in the custom games collection
-        """
-        return self.real_match_fetcher.find_custom_games_between_players()
-    
     def get_custom_games(self):
         """Get all saved custom games"""
         logger.debug("Retrieving custom games from database")
@@ -485,7 +459,7 @@ class COH3StatsAnalyzer:
             days_back = 1 if hours_since_check > 12 else 0.0417  # 0.0417 days = 1 hour
             logger.debug(f"Checking {days_back} days back for player {player_name}")
             
-            matches = self.real_match_fetcher.fetch_matches_for_player(player_id, player_name, days_back=days_back)
+            matches = self.get_real_matches_from_html(player_id, player_name)
             
             # Update last check time
             self.last_check_times[player_id] = datetime.now()
@@ -555,7 +529,6 @@ class COH3StatsAnalyzer:
         unique_string = f"{'-'.join(player_ids)}_{match.get('match_date', '')}"
         
         # Use a hash of this string as the match ID
-        import hashlib
         unique_id = hashlib.md5(unique_string.encode()).hexdigest()
         logger.debug(f"Generated unique ID {unique_id} for match {match.get('match_id', 'unknown')}")
         return unique_id
