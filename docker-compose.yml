@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  coh3stats:
+    build: .
+    container_name: coh3stats-worker
+    environment:
+      - MONGO_URI=${MONGO_URI}  # Use environment variable for MongoDB URI
+      - CHECK_INTERVAL=60  # Set to 1 minute for Synology workstation
+      - LOG_LEVEL=INFO  # Default log level (can be changed at runtime)
+    volumes:
+      - ./samples:/app/samples  # Mount samples directory for data persistence
+      - ./logs:/app/logs  # Mount logs directory for persistence
+    restart: unless-stopped
+    # Add healthcheck to monitor the service
+    healthcheck:
+      test: ["CMD", "python", "-c", "import os; os.kill(os.getpid(), 10 if os.name == 'posix' else 21)"]
+      interval: 1h
+      timeout: 10s
+      retries: 3 

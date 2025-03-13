@@ -7,8 +7,72 @@ import os
 import re
 import json
 import random
+import logging
+import signal
 from dotenv import load_dotenv
 from fetch_real_matches import COH3RealMatchFetcher
+
+# Configure logging
+LOG_LEVELS = {
+    'DEBUG': logging.DEBUG,
+    'INFO': logging.INFO,
+    'WARNING': logging.WARNING,
+    'ERROR': logging.ERROR,
+    'CRITICAL': logging.CRITICAL
+}
+
+# Default log level
+current_log_level = os.getenv('LOG_LEVEL', 'INFO')
+
+# Setup logger
+logger = logging.getLogger('coh3stats')
+handler = logging.StreamHandler()
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+logger.addHandler(handler)
+logger.setLevel(LOG_LEVELS.get(current_log_level, logging.INFO))
+
+# Add file handler if logs directory exists
+logs_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'logs')
+if not os.path.exists(logs_dir):
+    try:
+        os.makedirs(logs_dir)
+    except Exception as e:
+        logger.warning(f"Could not create logs directory: {e}")
+
+try:
+    file_handler = logging.FileHandler(os.path.join(logs_dir, 'coh3stats.log'))
+    file_handler.setFormatter(formatter)
+    logger.addHandler(file_handler)
+    logger.info("Log file handler added")
+except Exception as e:
+    logger.warning(f"Could not set up file logging: {e}")
+
+# Function to change log level on the fly
+def change_log_level(signum, frame):
+    global current_log_level
+    # Rotate through log levels: INFO -> DEBUG -> WARNING -> INFO
+    if current_log_level == 'INFO':
+        current_log_level = 'DEBUG'
+    elif current_log_level == 'DEBUG':
+        current_log_level = 'WARNING'
+    else:
+        current_log_level = 'INFO'
+    
+    new_level = LOG_LEVELS.get(current_log_level, logging.INFO)
+    logger.setLevel(new_level)
+    logger.info(f"Log level changed to: {current_log_level}")
+
+# Register signal handler for SIGUSR1 (on Linux/Unix) or SIGBREAK (on Windows)
+if os.name == 'posix':
+    signal.signal(signal.SIGUSR1, change_log_level)
+    logger.info("Send SIGUSR1 signal to change log level (kill -SIGUSR1 PID)")
+else:
+    try:
+        signal.signal(signal.SIGBREAK, change_log_level)
+        logger.info("Press Ctrl+Break to change log level")
+    except AttributeError:
+        logger.warning("Log level change via signal not supported on this platform")
 
 # Load environment variables
 load_dotenv()
@@ -19,11 +83,14 @@ DB_NAME = "coh3stats_db"
 PLAYERS_COLLECTION = "players"
 MATCHES_COLLECTION = "matches"
 CUSTOM_GAMES_COLLECTION = "custom_games"
+AUTO_MATCHES_COLLECTION = "automatches"  # Nueva colección para partidas automáticas
+CONFIG_COLLECTION = "config"  # Collection for configuration
 
 # Constants for optimization
-CHECK_INTERVAL = 15 * 60  # 15 minutes in seconds
+CHECK_INTERVAL = int(os.getenv("CHECK_INTERVAL", 15 * 60))  # Default to 15 minutes if not set
 BATCH_SIZE = 5  # Number of players to check in each batch
 ERROR_WAIT_TIME = 60  # 1 minute wait on error
+LOG_CHECK_INTERVAL = 60  # Check for log level changes every 60 seconds
 
 # Available maps in the game
 AVAILABLE_MAPS = [
@@ -51,12 +118,20 @@ AVAILABLE_MAPS = [
 
 class COH3StatsAnalyzer:
     def __init__(self):
+        logger.info("Initializing COH3StatsAnalyzer")
         # Connect to MongoDB
-        self.client = pymongo.MongoClient(MONGO_URI)
-        self.db = self.client[DB_NAME]
-        self.players_collection = self.db[PLAYERS_COLLECTION]
-        self.matches_collection = self.db[MATCHES_COLLECTION]
-        self.custom_games_collection = self.db[CUSTOM_GAMES_COLLECTION]
+        try:
+            self.client = pymongo.MongoClient(MONGO_URI)
+            self.db = self.client[DB_NAME]
+            self.players_collection = self.db[PLAYERS_COLLECTION]
+            self.matches_collection = self.db[MATCHES_COLLECTION]
+            self.custom_games_collection = self.db[CUSTOM_GAMES_COLLECTION]
+            self.auto_matches_collection = self.db[AUTO_MATCHES_COLLECTION]
+            self.config_collection = self.db[CONFIG_COLLECTION]
+            logger.info(f"Connected to MongoDB database: {DB_NAME}")
+        except Exception as e:
+            logger.critical(f"Failed to connect to MongoDB: {str(e)}")
+            raise
         
         # Initialize the real match fetcher
         self.real_match_fetcher = COH3RealMatchFetcher()
@@ -64,26 +139,60 @@ class COH3StatsAnalyzer:
         # Track last check time for each player
         self.last_check_times = {}
         
+        # Track last log level check time
+        self.last_log_check = datetime.now()
+        
+        logger.debug("Initialization complete")
+    
+    def check_log_level(self):
+        """Check if log level has been changed in the database"""
+        global current_log_level
+        
+        now = datetime.now()
+        # Only check periodically to avoid too many DB queries
+        if (now - self.last_log_check).total_seconds() < LOG_CHECK_INTERVAL:
+            return
+        
+        self.last_log_check = now
+        
+        try:
+            config = self.config_collection.find_one({"key": "log_level"})
+            if config and config["value"] != current_log_level:
+                new_level = config["value"]
+                if new_level in LOG_LEVELS:
+                    logger.info(f"Changing log level from {current_log_level} to {new_level} (from database)")
+                    current_log_level = new_level
+                    logger.setLevel(LOG_LEVELS[new_level])
+        except Exception as e:
+            logger.warning(f"Error checking log level from database: {e}")
+        
     def get_players_to_analyze(self):
         """Get the list of players to analyze from the database"""
+        logger.debug("Getting players to analyze")
         current_time = datetime.now()
         
         # Get all players and sort by last check time
         players = list(self.players_collection.find({}))
+        logger.info(f"Found {len(players)} players in database")
         
         # Update check times for new players
         for player in players:
             player_id = player['player_id']
             if player_id not in self.last_check_times:
                 self.last_check_times[player_id] = current_time - timedelta(hours=1)
+                logger.debug(f"Initialized check time for player {player['player_name']} (ID: {player_id})")
         
         # Sort players by last check time (oldest first)
         players.sort(key=lambda p: self.last_check_times.get(p['player_id'], datetime.min))
         
-        return players[:BATCH_SIZE]  # Return only the batch size
+        batch = players[:BATCH_SIZE]
+        logger.info(f"Selected batch of {len(batch)} players to analyze")
+        logger.debug(f"Batch players: {', '.join([p['player_name'] for p in batch])}")
+        return batch
     
     def add_player(self, player_id, player_name):
         """Add a new player to the database"""
+        logger.info(f"Adding player {player_name} (ID: {player_id})")
         player_data = {
             "player_id": player_id,
             "player_name": player_name,
@@ -94,7 +203,7 @@ class COH3StatsAnalyzer:
             {"$set": player_data},
             upsert=True
         )
-        print(f"Player {player_name} (ID: {player_id}) added successfully")
+        logger.info(f"Player {player_name} (ID: {player_id}) added successfully")
     
     def extract_player_data(self, html_content):
         """Extract player data from the HTML of the page"""
@@ -359,10 +468,14 @@ class COH3StatsAnalyzer:
     
     def get_custom_games(self):
         """Get all saved custom games"""
-        return list(self.custom_games_collection.find().sort("discovered_at", pymongo.DESCENDING))
+        logger.debug("Retrieving custom games from database")
+        games = list(self.custom_games_collection.find().sort("discovered_at", pymongo.DESCENDING))
+        logger.debug(f"Retrieved {len(games)} custom games")
+        return games
 
     def get_player_matches(self, player_id, player_name):
         """Get matches for a specific player"""
+        logger.debug(f"Getting matches for player {player_name} (ID: {player_id})")
         try:
             # Calculate how long since last check
             last_check = self.last_check_times.get(player_id, datetime.min)
@@ -370,19 +483,25 @@ class COH3StatsAnalyzer:
             
             # Only check last hour if checked recently, otherwise check last day
             days_back = 1 if hours_since_check > 12 else 0.0417  # 0.0417 days = 1 hour
+            logger.debug(f"Checking {days_back} days back for player {player_name}")
             
             matches = self.real_match_fetcher.fetch_matches_for_player(player_id, player_name, days_back=days_back)
             
             # Update last check time
             self.last_check_times[player_id] = datetime.now()
             
+            logger.info(f"Found {len(matches)} matches for player {player_name}")
+            logger.debug(f"Match IDs: {[m.get('match_id', 'unknown') for m in matches]}")
             return matches
         except Exception as e:
-            print(f"Error getting matches for {player_name}: {str(e)}")
+            logger.error(f"Error getting matches for {player_name}: {str(e)}")
             return []
     
     def is_custom_game_between_players(self, match, registered_players):
         """Check if a match is a custom game between registered players"""
+        match_id = match.get('match_id', 'unknown')
+        logger.debug(f"Checking if match {match_id} is a custom game between registered players")
+        
         # Get all player IDs from the match
         match_players = []
         for player in match.get('axis_players', []) + match.get('allies_players', []):
@@ -397,7 +516,32 @@ class COH3StatsAnalyzer:
         # Check if it's a custom game (match_type should contain "custom" or "Custom")
         is_custom = 'custom' in match.get('match_type', '').lower()
         
-        return is_custom and all_players_registered
+        result = is_custom and all_players_registered
+        logger.debug(f"Match {match_id}: is_custom={is_custom}, all_players_registered={all_players_registered}, result={result}")
+        return result
+    
+    def is_auto_match_with_registered_player(self, match, registered_players):
+        """Check if a match is an auto match with at least one registered player"""
+        match_id = match.get('match_id', 'unknown')
+        logger.debug(f"Checking if match {match_id} is an auto match with registered player")
+        
+        # Get all player IDs from the match
+        match_players = []
+        for player in match.get('axis_players', []) + match.get('allies_players', []):
+            match_players.append(player.get('player_id'))
+        
+        # Get all registered player IDs
+        registered_player_ids = [p['player_id'] for p in registered_players]
+        
+        # Check if at least one player in the match is a registered player
+        any_player_registered = any(player_id in registered_player_ids for player_id in match_players)
+        
+        # Check if it's NOT a custom game
+        is_not_custom = 'custom' not in match.get('match_type', '').lower()
+        
+        result = is_not_custom and any_player_registered
+        logger.debug(f"Match {match_id}: is_not_custom={is_not_custom}, any_player_registered={any_player_registered}, result={result}")
+        return result
     
     def generate_unique_match_id(self, match):
         """Generate a unique match ID based on players and timestamp"""
@@ -412,46 +556,114 @@ class COH3StatsAnalyzer:
         
         # Use a hash of this string as the match ID
         import hashlib
-        return hashlib.md5(unique_string.encode()).hexdigest()
+        unique_id = hashlib.md5(unique_string.encode()).hexdigest()
+        logger.debug(f"Generated unique ID {unique_id} for match {match.get('match_id', 'unknown')}")
+        return unique_id
     
     def check_for_new_games(self):
-        """Check for new custom games between registered players"""
-        print(f"\n[{datetime.now()}] Checking for new custom games...")
+        """Check for new games (both custom and auto matches)"""
+        # Check if log level has been changed
+        self.check_log_level()
+        
+        logger.info(f"Starting check for new games at {datetime.now()}")
         
         # Get batch of players to analyze
         players_batch = self.get_players_to_analyze()
         if not players_batch:
-            print("No players registered in the database")
+            logger.warning("No players registered in the database")
             return
         
-        print(f"Checking batch of {len(players_batch)} players...")
+        logger.info(f"Checking batch of {len(players_batch)} players")
         
         # Get all registered players for validation
         all_registered_players = list(self.players_collection.find({}))
-        new_games_count = 0
+        logger.debug(f"Total registered players: {len(all_registered_players)}")
+        
+        new_custom_games_count = 0
+        new_auto_matches_count = 0
         
         # Check each player in the batch
         for player in players_batch:
             player_id = player["player_id"]
             player_name = player["player_name"]
             
-            print(f"Checking matches for {player_name}...")
+            logger.info(f"Checking matches for {player_name} (ID: {player_id})")
             matches = self.get_player_matches(player_id, player_name)
             
             for match in matches:
+                match_id = match.get('match_id', 'unknown')
+                match_type = match.get('match_type', 'unknown')
+                match_date = match.get('match_date', 'unknown')
+                
+                logger.debug(f"Processing match {match_id} ({match_type}) from {match_date}")
+                
+                # Generate a unique ID for this match
+                unique_match_id = self.generate_unique_match_id(match)
+                match['unique_match_id'] = unique_match_id
+                
+                # Check if it's a custom game between registered players
                 if self.is_custom_game_between_players(match, all_registered_players):
-                    unique_match_id = self.generate_unique_match_id(match)
-                    match['unique_match_id'] = unique_match_id
-                    
-                    if not self.custom_games_collection.find_one({"unique_match_id": unique_match_id}):
+                    # Check if this match is already in the database
+                    existing_match = self.custom_games_collection.find_one({"unique_match_id": unique_match_id})
+                    if not existing_match:
+                        logger.info(f"Found new custom game: {match_id} ({match_type}) from {match_date}")
                         match['discovered_at'] = datetime.now()
                         self.custom_games_collection.insert_one(match)
-                        new_games_count += 1
-                        print(f"New custom game found: {unique_match_id}")
+                        new_custom_games_count += 1
+                        
+                        # Log detailed match information
+                        axis_players = [f"{p.get('player_name', 'unknown')} ({p.get('player_id', 'unknown')})" 
+                                       for p in match.get('axis_players', [])]
+                        allies_players = [f"{p.get('player_name', 'unknown')} ({p.get('player_id', 'unknown')})" 
+                                         for p in match.get('allies_players', [])]
+                        
+                        logger.debug(f"Custom game details - Map: {match.get('map_name', 'unknown')}, "
+                                    f"Result: {match.get('match_result', 'unknown')}, "
+                                    f"Axis: {', '.join(axis_players)}, "
+                                    f"Allies: {', '.join(allies_players)}")
+                    else:
+                        logger.debug(f"Custom game {match_id} already exists in database")
+                
+                # Check if it's an auto match with at least one registered player
+                elif self.is_auto_match_with_registered_player(match, all_registered_players):
+                    # Check if this match is already in the database
+                    existing_match = self.auto_matches_collection.find_one({"unique_match_id": unique_match_id})
+                    if not existing_match:
+                        logger.info(f"Found new auto match: {match_id} ({match_type}) from {match_date}")
+                        match['discovered_at'] = datetime.now()
+                        self.auto_matches_collection.insert_one(match)
+                        new_auto_matches_count += 1
+                        
+                        # Log detailed match information
+                        axis_players = [f"{p.get('player_name', 'unknown')} ({p.get('player_id', 'unknown')})" 
+                                       for p in match.get('axis_players', [])]
+                        allies_players = [f"{p.get('player_name', 'unknown')} ({p.get('player_id', 'unknown')})" 
+                                         for p in match.get('allies_players', [])]
+                        
+                        logger.debug(f"Auto match details - Map: {match.get('map_name', 'unknown')}, "
+                                    f"Result: {match.get('match_result', 'unknown')}, "
+                                    f"Axis: {', '.join(axis_players)}, "
+                                    f"Allies: {', '.join(allies_players)}")
+                    else:
+                        logger.debug(f"Auto match {match_id} already exists in database")
+                else:
+                    logger.debug(f"Match {match_id} does not meet criteria for storage")
         
-        print(f"Found {new_games_count} new custom games in this batch")
+        logger.info(f"Found {new_custom_games_count} new custom games and {new_auto_matches_count} new auto matches in this batch")
+    
+    def get_auto_matches(self):
+        """Get all saved auto matches"""
+        logger.debug("Retrieving auto matches from database")
+        matches = list(self.auto_matches_collection.find().sort("discovered_at", pymongo.DESCENDING))
+        logger.debug(f"Retrieved {len(matches)} auto matches")
+        return matches
 
 def main():
+    logger.info("Starting COH3 Stats Analyzer")
+    logger.info(f"Check interval: {CHECK_INTERVAL} seconds")
+    logger.info(f"Batch size: {BATCH_SIZE} players")
+    logger.info(f"Current log level: {current_log_level}")
+    
     analyzer = COH3StatsAnalyzer()
     
     while True:
@@ -463,13 +675,13 @@ def main():
             
             # Calculate sleep time (ensure minimum 1 minute between checks)
             sleep_time = max(CHECK_INTERVAL - execution_time, 60)
-            print(f"\nExecution took {execution_time:.1f} seconds")
-            print(f"Waiting {sleep_time/60:.1f} minutes before next batch...")
+            logger.info(f"Execution took {execution_time:.1f} seconds")
+            logger.info(f"Waiting {sleep_time/60:.1f} minutes before next batch...")
             time.sleep(sleep_time)
             
         except Exception as e:
-            print(f"Error in main loop: {str(e)}")
-            print("Waiting 1 minute before retrying...")
+            logger.error(f"Error in main loop: {str(e)}", exc_info=True)
+            logger.info(f"Waiting {ERROR_WAIT_TIME} seconds before retrying...")
             time.sleep(ERROR_WAIT_TIME)
 
 if __name__ == "__main__":

@@ -11,5 +11,9 @@ services:
         value: 3.11.8
       - key: MONGO_URI
         sync: false  # You'll set this in Render dashboard
+      - key: CHECK_INTERVAL
+        value: 900  # 15 minutes in seconds
+      - key: LOG_LEVEL
+        value: INFO  # Default log level
     autoDeploy: true
     healthCheckPath: /healthz 
