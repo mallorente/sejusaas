@@ -292,27 +292,75 @@ class GameMonitorService:
         
         try:
             with sync_playwright() as p:
-                # Launch browser with slower network to ensure page loads
+                # Launch browser with Docker-specific configuration
                 browser = p.chromium.launch(
                     headless=True,
-                    args=['--no-sandbox']
+                    args=[
+                        '--no-sandbox',
+                        '--disable-setuid-sandbox',
+                        '--disable-dev-shm-usage',
+                        '--disable-accelerated-2d-canvas',
+                        '--no-first-run',
+                        '--no-zygote',
+                        '--disable-gpu',
+                        '--single-process'
+                    ]
                 )
                 context = browser.new_context(
                     viewport={'width': 1920, 'height': 1080},
-                    user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0'
+                    user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36'
                 )
                 page = context.new_page()
+                
+                # Set longer timeouts
+                page.set_default_timeout(60000)  # 60 seconds
+                page.set_default_navigation_timeout(60000)  # 60 seconds
+                
+                # Enable request interception to optimize page load
+                def route_handler(route):
+                    if route.request.resource_type in ["document", "script", "xhr", "fetch"]:
+                        route.continue_()
+                    else:
+                        route.abort()
+                
+                page.route("**/*", route_handler)
                 
                 # Navigate to recent matches
                 url = f"https://coh3stats.com/players/{player_id}/{player_name}/matches?view=recentMatches"
                 logger.info(f"Navigating to: {url}")
-                page.goto(url)
                 
-                # Extract matches
-                matches = self.extract_matches_from_page(page, player_id, player_name)
+                try:
+                    # Navigate with retry logic
+                    for attempt in range(3):
+                        try:
+                            response = page.goto(url, wait_until="networkidle")
+                            if response and response.ok:
+                                break
+                            logger.warning(f"Navigation attempt {attempt + 1} failed, retrying...")
+                            time.sleep(5)
+                        except Exception as e:
+                            if attempt == 2:  # Last attempt
+                                raise
+                            logger.warning(f"Navigation attempt {attempt + 1} failed: {str(e)}, retrying...")
+                            time.sleep(5)
+                    
+                    # Save page content for debugging
+                    page_content = page.content()
+                    with open(f"page_content_{player_name}.html", "w", encoding="utf-8") as f:
+                        f.write(page_content)
+                    
+                    # Extract matches
+                    matches = self.extract_matches_from_page(page, player_id, player_name)
+                    
+                except Exception as e:
+                    logger.error(f"Error during navigation: {str(e)}")
+                    # Take screenshot on error
+                    page.screenshot(path=f"error_{player_name}.png")
+                    raise
                 
-                # Close browser
-                browser.close()
+                finally:
+                    # Close browser
+                    browser.close()
         
         except Exception as e:
             logger.error(f"Error getting matches for {player_name}: {str(e)}")
