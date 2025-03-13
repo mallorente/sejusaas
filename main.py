@@ -245,153 +245,124 @@ class COH3StatsAnalyzer:
     
     def get_real_matches_from_html(self, player_id, player_name):
         """
-        Get real match data by extracting it from the HTML table on the player's page using Playwright
+        Get real match data by using the storage API
         """
         logger.info(f"Getting real match data for player: {player_name} (ID: {player_id})")
         
         try:
-            with sync_playwright() as p:
-                # Launch browser
-                browser = p.chromium.launch()
-                page = browser.new_page()
-                
-                # Go to player's page
-                url = f"https://coh3stats.com/players/{player_id}/{player_name}"
-                logger.debug(f"Navigating to URL: {url}")
-                page.goto(url)
-                
-                # Wait for the matches table to load
-                page.wait_for_selector('table[class*="matches-table"]')
-                
-                # Get the HTML content
-                html_content = page.content()
-                
-                # Close browser
-                browser.close()
-                
-                # Extract match data from the HTML
-                matches = self.extract_match_data_from_table(html_content, player_id, player_name)
-                
-                logger.info(f"Found {len(matches)} matches for player {player_name}")
-                return matches
+            # Get today's timestamp
+            today = datetime.now()
+            today_timestamp = int(datetime(today.year, today.month, today.day).timestamp())
             
-        except Exception as e:
-            logger.error(f"Error getting data for {player_name}: {str(e)}")
-            return []
-    
-    def extract_match_data_from_table(self, html_content, player_id, player_name):
-        """
-        Extract match data from the HTML table in the player page
-        """
-        logger.debug(f"Extracting match data for player {player_name}")
-        
-        soup = BeautifulSoup(html_content, 'html.parser')
-        
-        # Find the match table - buscar por la clase específica de la tabla de partidas recientes
-        match_table = soup.find('table', {'class': lambda x: x and 'matches-table' in x})
-        if not match_table:
-            logger.warning("No match table found in the HTML")
-            return []
-        
-        # Get all rows except the header
-        rows = match_table.find_all('tr')[1:]  # Skip header row
-        
-        matches = []
-        for row in rows:
-            try:
-                # Extract cells
-                cells = row.find_all('td')
-                if len(cells) < 6:
+            # Get yesterday's timestamp
+            yesterday = today - timedelta(days=1)
+            yesterday_timestamp = int(datetime(yesterday.year, yesterday.month, yesterday.day).timestamp())
+            
+            # Try to get matches from both today and yesterday
+            matches_data = []
+            for timestamp in [today_timestamp, yesterday_timestamp]:
+                url = f"https://storage.coh3stats.com/matches/matches-{timestamp}.json"
+                logger.debug(f"Getting matches from: {url}")
+                
+                try:
+                    response = requests.get(url)
+                    response.raise_for_status()
+                    data = response.json()
+                    
+                    # Filter matches for this player
+                    for match in data.get("matches", []):
+                        if str(player_id) in [str(pid) for pid in match.get("profile_ids", [])]:
+                            matches_data.append(match)
+                            logger.debug(f"Found match {match.get('id')} for player {player_name}")
+                except Exception as e:
+                    logger.warning(f"Error getting matches from {url}: {e}")
                     continue
+            
+            if not matches_data:
+                logger.warning("No matches found in storage API")
+                return []
+            
+            # Save matches_data for debugging
+            debug_json = f"debug_{player_name}_{int(time.time())}.json"
+            with open(debug_json, "w", encoding="utf-8") as f:
+                json.dump(matches_data, f, indent=2)
+            logger.debug(f"Saved matches_data to {debug_json}")
+            
+            # Process matches
+            matches = []
+            for match_data in matches_data:
+                try:
+                    # Extract basic match info
+                    match_type = "automatch" if match_data.get("matchtype_id") != 0 else "custom"
+                    match_date = datetime.fromtimestamp(match_data.get("completiontime", 0)).isoformat()
+                    map_name = match_data.get("mapname", "unknown")
+                    duration = str(int((match_data.get("completiontime", 0) - match_data.get("startgametime", 0)) / 60)) + " minutes"
+                    
+                    # Extract players and determine result
+                    axis_players = []
+                    allies_players = []
+                    player_result = "unknown"
+                    
+                    for report in match_data.get("matchhistoryreportresults", []):
+                        player_info = {
+                            "player_id": str(report.get("profile_id")),
+                            "player_name": report.get("profile", {}).get("name")
+                        }
+                        
+                        # Determine team based on race_id
+                        # 0 = Wehrmacht, 3 = DAK (Axis)
+                        # 1 = US Forces, 2 = British Forces (Allies)
+                        if report.get("race_id") in [0, 3]:
+                            axis_players.append(player_info)
+                        else:
+                            allies_players.append(player_info)
+                        
+                        # Get result for our player
+                        if str(report.get("profile_id")) == str(player_id):
+                            result_type = report.get("resulttype", -1)
+                            if result_type == 0:
+                                player_result = "defeat"
+                            elif result_type == 1:
+                                player_result = "victory"
+                    
+                    # Generate match ID
+                    match_id_parts = [
+                        match_date,
+                        *[p["player_id"] for p in axis_players],
+                        *[p["player_id"] for p in allies_players]
+                    ]
+                    match_id = hashlib.md5("_".join(match_id_parts).encode()).hexdigest()
+                    
+                    # Create match object
+                    match = {
+                        "match_id": match_id,
+                        "player_id": player_id,
+                        "player_name": player_name,
+                        "match_date": match_date,
+                        "match_type": match_type,
+                        "match_result": player_result,
+                        "map_name": map_name,
+                        "duration": duration,
+                        "axis_players": axis_players,
+                        "allies_players": allies_players,
+                        "is_simulated": False,
+                        "is_scraped": True,
+                        "scraped_at": datetime.now().isoformat()
+                    }
+                    
+                    matches.append(match)
+                    logger.debug(f"Processed match {match_id} ({match_type} on {map_name})")
+                    
+                except Exception as e:
+                    logger.error(f"Error processing match: {str(e)}")
+                    continue
+            
+            logger.info(f"Found {len(matches)} matches for player {player_name}")
+            return matches
                 
-                # Extract match date
-                date_cell = cells[0]
-                date_text = date_cell.find('time')['datetime'] if date_cell.find('time') else date_cell.get_text(strip=True)
-                
-                # Extract match result and rating change
-                result_cell = cells[1]
-                result_div = result_cell.find('div', {'class': lambda x: x and 'row-indicator' in x})
-                match_result = "Victory" if result_div and 'win-indicator' in result_div.get('class', []) else "Defeat"
-                
-                rating_change = None
-                rating_span = result_cell.find('span', {'class': lambda x: x and ('positive' in x or 'negative' in x)})
-                if rating_span:
-                    rating_change = rating_span.get_text(strip=True)
-                
-                # Extract map
-                map_cell = cells[4]
-                map_name = map_cell.get_text(strip=True)
-                
-                # Extract game mode and duration
-                mode_cell = cells[5]
-                mode_text = mode_cell.get_text(strip=True)
-                mode_parts = mode_text.split('•') if '•' in mode_text else [mode_text, '']
-                mode = mode_parts[0].strip()
-                duration = mode_parts[1].strip() if len(mode_parts) > 1 else ''
-                
-                # Extract axis players
-                axis_cell = cells[2]
-                axis_players = []
-                for player_link in axis_cell.find_all('a'):
-                    player_href = player_link.get('href', '')
-                    player_id_match = re.search(r'/players/(\d+)', player_href)
-                    if player_id_match:
-                        player_id_from_link = player_id_match.group(1)
-                        player_name_from_link = player_link.get_text(strip=True)
-                        axis_players.append({
-                            'player_id': player_id_from_link,
-                            'player_name': player_name_from_link
-                        })
-                
-                # Extract allies players
-                allies_cell = cells[3]
-                allies_players = []
-                for player_link in allies_cell.find_all('a'):
-                    player_href = player_link.get('href', '')
-                    player_id_match = re.search(r'/players/(\d+)', player_href)
-                    if player_id_match:
-                        player_id_from_link = player_id_match.group(1)
-                        player_name_from_link = player_link.get_text(strip=True)
-                        allies_players.append({
-                            'player_id': player_id_from_link,
-                            'player_name': player_name_from_link
-                        })
-                
-                # Generate a unique match ID basado en la fecha y los jugadores
-                match_id_parts = [
-                    date_text,
-                    *[p['player_id'] for p in axis_players],
-                    *[p['player_id'] for p in allies_players]
-                ]
-                match_id = hashlib.md5('_'.join(match_id_parts).encode()).hexdigest()
-                
-                # Create match object
-                match = {
-                    'match_id': match_id,
-                    'player_id': player_id,
-                    'player_name': player_name,
-                    'match_date': date_text,
-                    'match_type': mode,
-                    'match_result': match_result,
-                    'rating_change': rating_change,
-                    'map_name': map_name,
-                    'duration': duration,
-                    'axis_players': axis_players,
-                    'allies_players': allies_players,
-                    'is_simulated': False,
-                    'is_scraped': True,
-                    'scraped_at': datetime.now().isoformat()
-                }
-                
-                matches.append(match)
-                logger.debug(f"Processed match {match_id} ({mode} on {map_name})")
-                
-            except Exception as e:
-                logger.error(f"Error processing match row: {str(e)}")
-                continue
-        
-        logger.info(f"Found {len(matches)} matches for {player_name}")
-        return matches
+        except Exception as e:
+            logger.error(f"Error getting data for {player_name}: {str(e)}", exc_info=True)
+            return []
     
     def get_real_matches(self, player_id, player_name, days_back=7):
         """
@@ -631,6 +602,101 @@ class COH3StatsAnalyzer:
         logger.debug(f"Retrieved {len(matches)} auto matches")
         return matches
 
+    def force_check_player(self, player_id, player_name):
+        """
+        Force check a specific player regardless of batch processing
+        Useful for debugging when a player's games aren't being detected
+        """
+        logger.info(f"Force checking player {player_name} (ID: {player_id})")
+        
+        # Get all registered players for validation
+        all_registered_players = list(self.players_collection.find({}))
+        
+        # Make sure this player is registered
+        player_registered = any(p['player_id'] == player_id for p in all_registered_players)
+        if not player_registered:
+            logger.warning(f"Player {player_name} (ID: {player_id}) is not registered. Registering now.")
+            self.add_player(player_id, player_name)
+            # Refresh the list
+            all_registered_players = list(self.players_collection.find({}))
+        
+        # Get matches for this player
+        logger.info(f"Getting matches for {player_name}")
+        matches = self.get_real_matches_from_html(player_id, player_name)
+        logger.info(f"Found {len(matches)} matches for {player_name}")
+        
+        new_custom_games = 0
+        new_auto_matches = 0
+        
+        # Process each match
+        for match in matches:
+            match_id = match.get('match_id', 'unknown')
+            match_type = match.get('match_type', 'unknown')
+            match_date = match.get('match_date', 'unknown')
+            
+            logger.info(f"Processing match {match_id} ({match_type}) from {match_date}")
+            
+            # Generate a unique ID for this match
+            unique_match_id = self.generate_unique_match_id(match)
+            match['unique_match_id'] = unique_match_id
+            
+            # Check if it's a custom game between registered players
+            if self.is_custom_game_between_players(match, all_registered_players):
+                # Check if this match is already in the database
+                existing_match = self.custom_games_collection.find_one({"unique_match_id": unique_match_id})
+                if not existing_match:
+                    logger.info(f"Found new custom game: {match_id} ({match_type}) from {match_date}")
+                    match['discovered_at'] = datetime.now()
+                    self.custom_games_collection.insert_one(match)
+                    new_custom_games += 1
+                    
+                    # Log detailed match information
+                    axis_players = [f"{p.get('player_name', 'unknown')} ({p.get('player_id', 'unknown')})" 
+                                   for p in match.get('axis_players', [])]
+                    allies_players = [f"{p.get('player_name', 'unknown')} ({p.get('player_id', 'unknown')})" 
+                                     for p in match.get('allies_players', [])]
+                    
+                    logger.info(f"Custom game details - Map: {match.get('map_name', 'unknown')}, "
+                                f"Result: {match.get('match_result', 'unknown')}, "
+                                f"Axis: {', '.join(axis_players)}, "
+                                f"Allies: {', '.join(allies_players)}")
+                else:
+                    logger.info(f"Custom game {match_id} already exists in database")
+            
+            # Check if it's an auto match with at least one registered player
+            elif self.is_auto_match_with_registered_player(match, all_registered_players):
+                # Check if this match is already in the database
+                existing_match = self.auto_matches_collection.find_one({"unique_match_id": unique_match_id})
+                if not existing_match:
+                    logger.info(f"Found new auto match: {match_id} ({match_type}) from {match_date}")
+                    match['discovered_at'] = datetime.now()
+                    self.auto_matches_collection.insert_one(match)
+                    new_auto_matches += 1
+                    
+                    # Log detailed match information
+                    axis_players = [f"{p.get('player_name', 'unknown')} ({p.get('player_id', 'unknown')})" 
+                                   for p in match.get('axis_players', [])]
+                    allies_players = [f"{p.get('player_name', 'unknown')} ({p.get('player_id', 'unknown')})" 
+                                     for p in match.get('allies_players', [])]
+                    
+                    logger.info(f"Auto match details - Map: {match.get('map_name', 'unknown')}, "
+                                f"Result: {match.get('match_result', 'unknown')}, "
+                                f"Axis: {', '.join(axis_players)}, "
+                                f"Allies: {', '.join(allies_players)}")
+                else:
+                    logger.info(f"Auto match {match_id} already exists in database")
+            else:
+                logger.info(f"Match {match_id} does not meet criteria for storage. Custom: {'custom' in match_type.lower()}, Players registered: {[p['player_id'] for p in all_registered_players]}")
+        
+        # Update last check time
+        self.last_check_times[player_id] = datetime.now()
+        
+        return {
+            "total_matches": len(matches),
+            "new_custom_games": new_custom_games,
+            "new_auto_matches": new_auto_matches
+        }
+
 def main():
     logger.info("Starting COH3 Stats Analyzer")
     logger.info(f"Check interval: {CHECK_INTERVAL} seconds")
@@ -638,6 +704,21 @@ def main():
     logger.info(f"Current log level: {current_log_level}")
     
     analyzer = COH3StatsAnalyzer()
+    
+    # Check if we're running in debug mode for a specific player
+    import sys
+    if len(sys.argv) > 2 and sys.argv[1] == "--force-check":
+        player_id = sys.argv[2]
+        player_name = sys.argv[3] if len(sys.argv) > 3 else None
+        
+        if not player_name:
+            logger.error("Player name is required for force check")
+            return
+        
+        logger.info(f"Force checking player {player_name} (ID: {player_id})")
+        result = analyzer.force_check_player(player_id, player_name)
+        logger.info(f"Force check results: {result}")
+        return
     
     while True:
         try:

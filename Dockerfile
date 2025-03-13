@@ -28,11 +28,15 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Install Playwright browsers
 RUN playwright install chromium
 
-# Copy the rest of the application code
-COPY . .
+# Create necessary directories
+RUN mkdir -p /app/logs
+
+# Copy the application code
+COPY sejusaas /app/sejusaas/
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
+ENV PYTHONPATH=/app
 
-# Command to run the application
-CMD ["python", "main.py"] 
+# Command to run the service
+CMD ["python", "-m", "sejusaas"] 
