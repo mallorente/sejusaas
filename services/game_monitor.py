@@ -9,6 +9,14 @@ import hashlib
 from playwright.sync_api import sync_playwright
 import json
 import re
+from typing import List, Dict, Any
+from dotenv import load_dotenv
+
+# Import the SheetsExporter
+from .sheets_exporter import SheetsExporter
+
+# Load environment variables
+load_dotenv()
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -34,6 +42,15 @@ class GameMonitorService:
         
         # Track last check time for each player
         self.last_check_times = {}
+        
+        # Initialize the sheets exporter
+        self.sheets_exporter = SheetsExporter()
+        if self.sheets_exporter.is_connected():
+            logger.info("Google Sheets exporter initialized successfully")
+        else:
+            logger.warning("Google Sheets exporter not connected. Export to sheets will be disabled.")
+            
+        logger.info("Game Monitor Service initialized")
     
     def get_players_to_analyze(self):
         """Get the list of players to analyze from the database"""
@@ -437,4 +454,44 @@ class GameMonitorService:
             except Exception as e:
                 logger.error(f"Error in main loop: {str(e)}", exc_info=True)
                 logger.info("Waiting 60 seconds before retrying...")
-                time.sleep(60) 
+                time.sleep(60)
+
+    def process_matches(self, matches: List[Dict[str, Any]], registered_players: List[Dict[str, Any]]) -> tuple:
+        """Process matches and store them in appropriate collections"""
+        new_custom_games = 0
+        new_auto_matches = 0
+        custom_games_to_export = []
+        
+        for match in matches:
+            # Generate unique match ID
+            unique_match_id = self.generate_unique_match_id(match)
+            match['unique_match_id'] = unique_match_id
+            
+            # Check if it's a custom game between registered players
+            if self.is_custom_game_between_players(match, registered_players):
+                if not self.custom_games_collection.find_one({"unique_match_id": unique_match_id}):
+                    match['discovered_at'] = datetime.now()
+                    self.custom_games_collection.insert_one(match)
+                    new_custom_games += 1
+                    logger.info(f"New custom game found: {match['match_id']}")
+                    
+                    # Add to list of games to export to sheets
+                    custom_games_to_export.append(match)
+            
+            # Check if it's an auto match with at least one registered player
+            elif self.is_auto_match_with_registered_player(match, registered_players):
+                if not self.auto_matches_collection.find_one({"unique_match_id": unique_match_id}):
+                    match['discovered_at'] = datetime.now()
+                    self.auto_matches_collection.insert_one(match)
+                    new_auto_matches += 1
+                    logger.info(f"New auto match found: {match['match_id']}")
+        
+        # Export custom games to Google Sheets
+        if custom_games_to_export and self.sheets_exporter.is_connected():
+            try:
+                exported_count = self.sheets_exporter.export_matches(custom_games_to_export)
+                logger.info(f"Exported {exported_count} custom games to Google Sheets")
+            except Exception as e:
+                logger.error(f"Error exporting custom games to Google Sheets: {str(e)}")
+        
+        return new_custom_games, new_auto_matches 

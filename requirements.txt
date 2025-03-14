@@ -2,4 +2,7 @@ playwright==1.41.2
 pymongo==4.6.1
 python-dotenv==1.0.1
 beautifulsoup4==4.12.3
-requests==2.31.0 
+requests==2.31.0
+gspread==5.12.0
+google-auth==2.23.4
+google-auth-oauthlib==1.1.0 

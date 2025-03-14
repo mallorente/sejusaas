@@ -8,9 +8,16 @@ services:
       - MONGO_URI=${MONGO_URI}  # Use environment variable for MongoDB URI
       - CHECK_INTERVAL=60  # Set to 1 minute for Synology workstation
       - LOG_LEVEL=INFO  # Default log level (can be changed at runtime)
+      # Google Sheets configuration
+      - GOOGLE_SERVICE_ACCOUNT_FILE=/app/service-account.json
+      # Alternatively, you can use the JSON directly:
+      # - GOOGLE_SERVICE_ACCOUNT_JSON=${GOOGLE_SERVICE_ACCOUNT_JSON}
+      - GOOGLE_SHEETS_ID=${GOOGLE_SHEETS_ID:-1JHrIoReIXPsYJdfbcFdq1csHEH8HsoJkhin3wF5NkOs}
+      - GOOGLE_SHEETS_WORKSHEET=${GOOGLE_SHEETS_WORKSHEET:-Auto Registro}
     volumes:
       - ./samples:/app/samples  # Mount samples directory for data persistence
       - ./logs:/app/logs  # Mount logs directory for persistence
+      - ./service-account.json:/app/service-account.json  # Mount service account credentials
     restart: unless-stopped
     # Add healthcheck to monitor the service
     healthcheck:
