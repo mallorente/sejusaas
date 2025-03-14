@@ -3,7 +3,7 @@
 import os
 import logging
 from dotenv import load_dotenv
-from sejusaas.services import GameMonitorService
+from services.game_monitor import GameMonitorService
 
 # Load environment variables
 load_dotenv()

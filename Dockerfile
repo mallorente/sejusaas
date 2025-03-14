@@ -1,7 +1,6 @@
-# Use the official Python image
 FROM python:3.11-slim
 
-# Install system dependencies required for Playwright
+# Install system dependencies for Playwright
 RUN apt-get update && apt-get install -y \
     wget \
     gnupg \
@@ -16,27 +15,44 @@ RUN apt-get update && apt-get install -y \
     fonts-kacst \
     fonts-freefont-ttf \
     libxss1 \
+    # Additional dependencies for Playwright
+    libnss3 \
+    libnspr4 \
+    libatk1.0-0 \
+    libatk-bridge2.0-0 \
+    libcups2 \
+    libdrm2 \
+    libdbus-1-3 \
+    libxkbcommon0 \
+    libatspi2.0-0 \
+    libxrandr2 \
+    libgbm1 \
+    libasound2 \
+    xvfb \
     && rm -rf /var/lib/apt/lists/*
 
-# Set the working directory
+# Set working directory
 WORKDIR /app
 
-# Copy the requirements file and install dependencies
+# Copy requirements first to leverage Docker cache
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Install Playwright browsers
+# Install Playwright browsers properly
+ENV PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
 RUN playwright install chromium
+RUN playwright install-deps chromium
 
-# Create necessary directories
+# Create logs directory
 RUN mkdir -p /app/logs
 
-# Copy the application code
+# Copy application code
 COPY sejusaas /app/sejusaas/
+COPY services /app/services/
+COPY __main__.py /app/
 
-# Set environment variables
-ENV PYTHONUNBUFFERED=1
-ENV PYTHONPATH=/app
+# Set environment variables for Playwright
+ENV DISPLAY=:99
 
-# Command to run the service
-CMD ["python", "-m", "sejusaas"] 
+# Run the service with xvfb for headless browser support
+CMD Xvfb :99 -screen 0 1024x768x16 & python __main__.py 

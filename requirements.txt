@@ -1,7 +1,5 @@
-requests==2.31.0
-beautifulsoup4==4.12.3
+playwright==1.41.2
 pymongo==4.6.1
 python-dotenv==1.0.1
-mongomock==4.1.2
-pytest==8.0.0
-playwright==1.42.0
+beautifulsoup4==4.12.3
+requests==2.31.0 
